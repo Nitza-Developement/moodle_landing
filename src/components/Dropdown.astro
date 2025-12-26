@@ -1,5 +1,5 @@
 ---
-import type { HeaderItem, InnerItem } from '../types/headers';
+import type { HeaderItem, InnerItem } from "../types/headers";
 
 interface Props {
   item: HeaderItem;
@@ -10,7 +10,14 @@ interface Props {
   currentLangName?: string;
 }
 
-const { item, isLanguageSelector = false, customStyle = '', isUserList = false, currentLang = 'en', currentLangName = 'English' } = Astro.props;
+const {
+  item,
+  isLanguageSelector = false,
+  customStyle = "",
+  isUserList = false,
+  currentLang = "en",
+  currentLangName = "English",
+} = Astro.props;
 
 const flags: Record<string, string> = {
   en: "data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMpaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjAtYzA2MCA2MS4xMzQ3NzcsIDIwMTAvMDIvMTItMTc6MzI6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDUzUgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5NTM4RDUxQjYxM0IxMUU3ODM5NTg5Qjc3NkUwNEZFMSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5NTM4RDUxQzYxM0IxMUU3ODM5NTg5Qjc3NkUwNEZFMSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjk1MzhENTE5NjEzQjExRTc4Mzk1ODlCNzc2RTA0RkUxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjk1MzhENTFBNjEzQjExRTc4Mzk1ODlCNzc2RTA0RkUxIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/+4ADkFkb2JlAGTAAAAAAf/bAIQABgQEBAUEBgUFBgkGBQYJCwgGBggLDAoKCwoKDBAMDAwMDAwQDA4PEA8ODBMTFBQTExwbGxscHx8fHx8fHx8fHwEHBwcNDA0YEBAYGhURFRofHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8f/8AAEQgAKgBAAwERAAIRAQMRAf/EAJkAAQABBQEAAAAAAAAAAAAAAAAHBAUGCQEBAQAAgMBAQAAAAAAAAAAAAAAAgYBBAUDBxAAAAQBBwkHBAMBAAAAAAAAAQIDBAAREhMFBhYHMaHRkpPTFVVWIUGRIjIzFFFhQtKCIyVFEQAAAgMQAgIBBQAAAAAAAAAAAfACAxEhMVGBoRJSghNTBBRUBRVBcZHRMmHhIkJD/9oADAMBAAIRAxEAPwDlhqtFarm7o4qNFlE3Cx3LoRonRkzgAJthKQRE/b2zhyxa6ThuQwQePY1hmjZ9nxYyXx3cwFDJ8G/6QACFJSiFHMmTs0RvDo+PfiEHBjN6jaGamEywqz/iDxFKcLVr8gRA5HUpJwGCT8YkbQ3fl7yfoBubIVNU94KpSrBVdk0cJuqesREKBaiE4EM3ESAM3ygAy98c7lHFmC1I3nvZDp8O2as8wqbJWku+9G8JNuvhv1Ep4l/SKpdMqwufZcjgFP8AYXXw36iU8S/pC6ZVg7LkcAp/sLr4b9RKeJf0hdMqwdlyOAU/2PS2Zw5KYDFtGoBgGUBASgICH8IXTKsMHyPIn/gSSiHmhQQqZFU4fFBw1dkKu7AF0nAgoUJjYkwaFQMk+XL3hF6WfWjfKDx7jHzobIW3+gNX/GXpQcnPwmcXiRQ+JLSfMo5BT75mbvjzdedd8Q/1hiAWG5iHTSdgoRQjYtXFO/RSAjVsM4fK8b0f95gk9XfJ3xI4o6T3k/R+AGdZo9UNLRVO8rZis4q5Ur0xjJmCgX8yhSnbJf1URSmylljR5JZUmC1J8v4vefEI6fDs2y+YVJidFd9w5PRiR7w4V8iceAb6KreMaqfIueg5TGVSyF4cK+ROPAN9C8Y1U+Q0HKYyqWQvDhXyJx4BvoXjGqnyGg5TGVSyF4cK+ROPAN9C8Y1U+Q0HKYyqWRGhLF2+aNSt2lnHiLgyazd8vNFUqyahgEAKUQEpJACScUe2LrqGRm6axfoPndAxfGylsxcCldR7walFctXeeeCgpUc75E2ky+aTJEb9m5+ZUo/2CgcQoTsviKBSrK2eeKVi2BuWr3YJzQRK2ERApkwLMVl7O02eMm3Y1icfdlCgsNvZCobb1XaJhWwWXcA6blcC7UVA1GsdedIYCSABJANJIWNPkMwrcmSp0jecIb3HZdRdsRNFqCj7piSr0W96YLqH0xXL1pVFk63I7icgvRb3pguofTC9aVQ63I7icgvRb3pguofTC9aVQ63I7icgvRb3pguofTC9aVQ63I7ichXwTFnnTXNuIUG0ZJII6zisJdLYcExZ501zbiFBtGSSBrOKwl0thwTFnnTXNuIUG0ZJIGs4rCXS2HBMWedNc24hQbRkkgazisJdLYcExZ501zbiFBtGSSBrOKwl0thwTFnnTXNuIUG0ZJIGs4rCXS2HBMWedNc24hQbRkkgazisJdLYcExZ501zbiFBtGSSBrOKwl0tjT3Xsd1aO0JpjzulKw6HZZzbTGF17HdWjtCaYXSlYOyzm2mMLr2O6tHaE0wulKwdlnNtMYXXsd1aO0JphdKVg7LObaYwuvY7q0doTTC6UrB2Wc20xhdex3Vo7QmmF0pWDss5tpjC69jurR2hNMLpSsHZZzbTGF17HdWjtCaYXSlYOyzm2mMcE499T2/Ub2/Rl/H7fSNMxaVPxKGWEW9WMCQasADVgAasADVgAasAFxv76ft+ovuejL+X2+sZIRX/ABOGSEf/2Q==",
@@ -29,59 +36,63 @@ const uniqueId = `dropdown-${Math.random().toString(36).substr(2, 9)}`;
 
 <div class="relative flex-col z-20 flex" data-dropdown={uniqueId}>
   <!-- Trigger element -->
-  <div class="inline-flex items-center text-sm lg:text-base font-medium text-slate-700 rounded-full hover:text-primary">
+  <div
+    class="inline-flex items-center text-sm lg:text-base font-medium text-slate-700 rounded-full hover:text-primary"
+  >
     <div data-trigger>
-      {isLanguageSelector ? (
-        <a
-          class="flex after:absolute hover:after:-bottom-10 after:inset-0 relative items-center text-base"
-          href="#"
-        >
-          <img alt="flag" class="h-3.5 me-3" src={flags[currentLang]} />
-          <span class="font-medium text-xs text-white">
-            {currentLangName}
-          </span>
-        </a>
-      ) : isUserList ? (
-        <a
-          class="relative flex items-center text-base text-slate-600 hover:text-primary dark:text-slate-400"
-          href="#"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-user w-5 h-5"
+      {
+        isLanguageSelector ? (
+          <a
+            class="flex after:absolute hover:after:-bottom-10 after:inset-0 relative items-center text-base"
+            href="#"
           >
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </a>
-      ) : (
-        <button class="group w-full px-4 justify-between flex items-center hover:bg-slate-100 rounded-md">
-          <span class="xl:py-1 group-hover:text-primary cursor-pointer dark:text-slate-300">
-            {item?.name}
-          </span>
-          <svg
-            data-chevron
-            class="size-5 transition-transform duration-300 text-gray-500 inline-block ml-2 group-hover:text-primary"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+            <img alt="flag" class="h-3.5 me-3" src={flags[currentLang]} />
+            <span class="font-medium text-xs text-white">
+              {currentLangName}
+            </span>
+          </a>
+        ) : isUserList ? (
+          <a
+            class="relative flex items-center text-base text-slate-600 hover:text-primary dark:text-slate-400"
+            href="#"
           >
-            <path
-              fill-rule="evenodd"
-              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-      )}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-user w-5 h-5"
+            >
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </a>
+        ) : (
+          <button class="group w-full px-4 justify-between flex items-center hover:bg-slate-100 rounded-md">
+            <span class="xl:py-1 group-hover:text-primary cursor-pointer dark:text-slate-300">
+              {item?.name}
+            </span>
+            <svg
+              data-chevron
+              class="size-5 transition-transform duration-300 text-gray-500 inline-block ml-2 group-hover:text-primary"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        )
+      }
     </div>
   </div>
 
@@ -91,131 +102,147 @@ const uniqueId = `dropdown-${Math.random().toString(36).substr(2, 9)}`;
     class:list={[
       "xl:absolute top-full whitespace-nowrap z-10 rounded-md bg-white shadow-lg ring-1 ring-gray-900/5 dark:bg-slate-950",
       "opacity-0 translate-y-1 pointer-events-none transition-all duration-200",
-      customStyle
+      customStyle,
     ]}
   >
     <div>
-      {item?.innerItems?.map((innerItem: InnerItem) => (
-        isLanguageSelector && innerItem.lang ? (
-          <span
-            data-lang={innerItem.lang}
-            class="cursor-pointer flex items-center gap-2 font-normal text-slate-600 hover:text-slate-700 hover:bg-slate-100 py-2 px-3 rounded dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-300"
-          >
-            <img alt="flag" class="h-4" src={flags[innerItem.lang]} />
-            {innerItem.name}
-          </span>
-        ) : isUserList && innerItem.code ? (
-          <a
-            class="flex items-center gap-3 m-1 font-normal text-slate-600 py-2 px-3 hover:text-slate-700 hover:bg-slate-100 rounded cursor-pointer dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-300"
-            href="javascript:void(0)"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="size-5 text-gray-600"
+      {
+        item?.innerItems?.map((innerItem: InnerItem) =>
+          isLanguageSelector && innerItem.lang ? (
+            <span
+              data-lang={innerItem.lang}
+              class="cursor-pointer flex items-center gap-2 font-normal text-slate-600 hover:text-slate-700 hover:bg-slate-100 py-2 px-3 rounded dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-300"
             >
-              <path d={iconPaths[innerItem.code]} />
-            </svg>
-            {innerItem.name}
-          </a>
-        ) : (
-          <a
-            href={innerItem.href}
-            class="flex items-center font-normal text-slate-600 py-2 px-3 transition-all hover:text-slate-950 hover:bg-slate-100 rounded dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-300"
-          >
-            {innerItem.name}
-          </a>
+              <img alt="flag" class="h-4" src={flags[innerItem.lang]} />
+              {innerItem.name}
+            </span>
+          ) : isUserList && innerItem.code ? (
+            <a
+              class="flex items-center gap-3 m-1 font-normal text-slate-600 py-2 px-3 hover:text-slate-700 hover:bg-slate-100 rounded cursor-pointer dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-300"
+              href="javascript:void(0)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-5 text-gray-600"
+              >
+                <path d={iconPaths[innerItem.code]} />
+              </svg>
+              {innerItem.name}
+            </a>
+          ) : (
+            <a
+              href={innerItem.href}
+              class="flex items-center font-normal text-slate-600 py-2 px-3 transition-all hover:text-slate-950 hover:bg-slate-100 rounded dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-300"
+            >
+              {innerItem.name}
+            </a>
+          ),
         )
-      ))}
+      }
     </div>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const dropdowns = document.querySelectorAll('[data-dropdown]');
+  const dropdowns = document.querySelectorAll("[data-dropdown]");
 
-    dropdowns.forEach((dropdown) => {
-      const trigger = dropdown.querySelector('[data-trigger]');
-      const panel = dropdown.querySelector('[data-panel]') as HTMLElement;
-      const chevron = dropdown.querySelector('[data-chevron]');
-      const langItems = dropdown.querySelectorAll('[data-lang]');
-      
-      let isOpen = false;
-      let isXl = window.innerWidth >= 1280;
+  dropdowns.forEach((dropdown) => {
+    const trigger = dropdown.querySelector("[data-trigger]");
+    const panel = dropdown.querySelector("[data-panel]") as HTMLElement;
+    const chevron = dropdown.querySelector("[data-chevron]");
+    const langItems = dropdown.querySelectorAll("[data-lang]");
 
-      const updateScreenSize = () => {
-        isXl = window.innerWidth >= 1280;
-      };
+    let isOpen = false;
+    let isXl = window.innerWidth >= 1280;
 
-      const openPanel = () => {
-        if (!isOpen) {
-          isOpen = true;
-          panel.classList.remove('opacity-0', 'translate-y-1', 'pointer-events-none');
-          panel.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-          chevron?.classList.add('rotate-180');
+    const updateScreenSize = () => {
+      isXl = window.innerWidth >= 1280;
+    };
+
+    const openPanel = () => {
+      if (!isOpen) {
+        isOpen = true;
+        panel.classList.remove(
+          "opacity-0",
+          "translate-y-1",
+          "pointer-events-none",
+        );
+        panel.classList.add(
+          "opacity-100",
+          "translate-y-0",
+          "pointer-events-auto",
+        );
+        chevron?.classList.add("rotate-180");
+      }
+    };
+
+    const closePanel = () => {
+      if (isOpen) {
+        isOpen = false;
+        panel.classList.add(
+          "opacity-0",
+          "translate-y-1",
+          "pointer-events-none",
+        );
+        panel.classList.remove(
+          "opacity-100",
+          "translate-y-0",
+          "pointer-events-auto",
+        );
+        chevron?.classList.remove("rotate-180");
+      }
+    };
+
+    const togglePanel = () => {
+      if (isOpen) {
+        closePanel();
+      } else {
+        openPanel();
+      }
+    };
+
+    // Click handler
+    trigger?.addEventListener("click", (e) => {
+      e.preventDefault();
+      togglePanel();
+    });
+
+    // Hover handlers for xl screens
+    dropdown.addEventListener("mouseenter", () => {
+      if (isXl) openPanel();
+    });
+
+    dropdown.addEventListener("mouseleave", () => {
+      if (isXl) closePanel();
+    });
+
+    // Language change handlers
+    langItems.forEach((langItem) => {
+      langItem.addEventListener("click", () => {
+        const lang = langItem.getAttribute("data-lang");
+        if (lang) {
+          localStorage.setItem("locale", lang);
+          window.location.reload();
         }
-      };
-
-      const closePanel = () => {
-        if (isOpen) {
-          isOpen = false;
-          panel.classList.add('opacity-0', 'translate-y-1', 'pointer-events-none');
-          panel.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-          chevron?.classList.remove('rotate-180');
-        }
-      };
-
-      const togglePanel = () => {
-        if (isOpen) {
-          closePanel();
-        } else {
-          openPanel();
-        }
-      };
-
-      // Click handler
-      trigger?.addEventListener('click', (e) => {
-        e.preventDefault();
-        togglePanel();
       });
+    });
 
-      // Hover handlers for xl screens
-      dropdown.addEventListener('mouseenter', () => {
-        if (isXl) openPanel();
-      });
+    // Resize listener
+    window.addEventListener("resize", updateScreenSize);
 
-      dropdown.addEventListener('mouseleave', () => {
-        if (isXl) closePanel();
-      });
-
-      // Language change handlers
-      langItems.forEach((langItem) => {
-        langItem.addEventListener('click', () => {
-          const lang = langItem.getAttribute('data-lang');
-          if (lang) {
-            localStorage.setItem('locale', lang);
-            window.location.reload();
-          }
-        });
-      });
-
-      // Resize listener
-      window.addEventListener('resize', updateScreenSize);
-
-      // Close on click outside
-      document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target as Node)) {
-          closePanel();
-        }
-      });
+    // Close on click outside
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target as Node)) {
+        closePanel();
+      }
     });
   });
 </script>
