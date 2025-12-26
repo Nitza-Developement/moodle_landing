@@ -1,49 +1,117 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
+// Types
+interface CardContent {
+  // Define your card content structure here
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+type ButtonType = 'Primary' | 'Large' | 'IconText' | 'Icon';
+type BadgeType = 'Default' | 'Warning' | 'Error' | 'count';
+
+// Import components - assuming they'll be converted to Astro components
+// For interactive components, you may need to keep them as Vue/React with client directives
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+import Badge from '../components/Badge.astro';
+import Reviews from '../components/Reviews.astro';
+import ReviewBars from '../components/ReviewBars.astro';
 import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+// For icons, you can use astro-icon or import SVGs directly
+// import { Icon } from 'astro-icon/components';
+
+// i18n setup - using Astro's built-in i18n or a simple approach
+// Option 1: Import translations directly
+import en from '../i18n/locales/en.json';
+import es from '../i18n/locales/es.json';
+
+const translations = { en, es };
+const locale = Astro.currentLocale ?? 'en';
+const t = translations[locale as keyof typeof translations] ?? en;
+
+// Get cards content from translations
+const cardsContent: CardContent[] = t.cardsContent ?? [];
+
+// Button texts from translations
+const buttonPrimaryText = t.buttons?.buttonPrimary?.text ?? 'Primary';
+const buttonLargeText = t.buttons?.buttonLarge?.text ?? 'Large';
+const buttonIconTextText = t.buttons?.buttonIconText?.text ?? 'Icon Text';
+
+// Badge texts from translations
+const badgeDefaultText = t.badges?.Default?.text ?? 'Default';
+const badgeWarningText = t.badges?.Warning?.text ?? 'Warning';
+const badgeErrorText = t.badges?.Error?.text ?? 'Error';
+const badgeNotificationsText = t.badges?.Notifications?.text ?? 'Notifications';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<!-- For interactive buttons with click handlers, you'll need client-side JS -->
+<Button variant="Icon" iconName="phone-arrow-down-left" />
+
+<div class="flex flex-wrap gap-8 p-8 justify-center">
+  {cardsContent.map((cardContent, index) => (
+    <Card cardContent={cardContent} key={index} />
+  ))}
+</div>
+
+<div>
+  <Button 
+    text={buttonPrimaryText} 
+    variant="Primary" 
+    data-params={JSON.stringify({ valor1: 'valor1' })}
+  />
+  <Button 
+    text={buttonLargeText} 
+    variant="Large" 
+  />
+  <Button 
+    text={buttonIconTextText} 
+    variant="IconText" 
+    iconName="phone-arrow-down-left"
+  />
+</div>
+
+<div>
+  <Badge text={badgeDefaultText} type="Default" />
+  <Badge text={badgeWarningText} type="Default" />
+  <Badge text={badgeErrorText} type="Default" />
+  <Badge text={badgeNotificationsText} type="count" count={8} />
+</div>
+
+<!-- <Reviews /> -->
+
+<ReviewBars 
+  img="https://coderthemes.com/yum/assets/avatar1-25906796.png" 
+  name="Jakob Culhane" 
+  stars={4}
+  text="Healthy and Delicious Food" 
+/>
+
+<ReviewBars 
+  img="https://coderthemes.com/yum/assets/burger-1-0c3ba5a6.svg" 
+  name="MCD Veg Burger" 
+  stars={5}
+  signal="$"  
+  text2="8.14" 
+/>
+
+<footer class="border-t border-slate-200 dark:border-slate-700">
+  <Footer />
+</footer>
+
+<script>
+  // Client-side JavaScript for button click handlers
+  document.querySelectorAll('[data-button-action]').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const params = target.dataset.params;
+      
+      if (params) {
+        console.log('click: ', JSON.parse(params));
+      } else {
+        console.log('click');
+      }
+    });
+  });
+</script>

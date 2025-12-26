@@ -1,0 +1,19 @@
+---
+type BadgeType = "Default" | "count";
+
+interface Props {
+  type: BadgeType;
+  badgeCustomStyles?: string;
+  count?: number;
+  text: string;
+}
+
+const { type, badgeCustomStyles = '', count, text } = Astro.props;
+---
+
+<span class:list={["inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-orange-500 m-1", badgeCustomStyles]}>
+  <slot>{text}</slot>
+  {type === 'count' && (
+    <span class="left-2 bg-red-600 rounded-full ml-1 px-1 text-white">{count}</span>
+  )}
+</span>

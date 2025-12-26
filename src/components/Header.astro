@@ -1,85 +1,208 @@
 ---
-import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import MegaMenu from "./MegaMenu.astro";
+import Dropdown from "./Dropdown.astro";
+import type { HeaderContent } from '../types/headers';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const headerContent : HeaderContent = t('header');
+const isOpenMenu = false;
 ---
 
-<header>
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-		</div>
-		<div class="social-links">
-			<a href="https://m.webtoo.ls/@astro" target="_blank">
-				<span class="sr-only">Follow Astro on Mastodon</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"
-					></path></svg
-				>
-			</a>
-			<a href="https://twitter.com/astrodotbuild" target="_blank">
-				<span class="sr-only">Follow Astro on Twitter</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"
-					></path></svg
-				>
-			</a>
-			<a href="https://github.com/withastro/astro" target="_blank">
-				<span class="sr-only">Go to Astro's GitHub repo</span>
-				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-					><path
-						fill="currentColor"
-						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-					></path></svg
-				>
-			</a>
-		</div>
-	</nav>
-</header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
+<header
+  class="sticky bg-white z-10 flex justify-center top-0 border-b border-slate-200 bg-transparent dark:bg-slate-950 dark:border-slate-800"
+>
+  <div class="lg:h-20 h-14 w-full flex justify-center items-center">
+    <div class="container">
+      <div class="flex items-center justify-between p-4">
+        <div class="flex">
+          {/*  Mobile Menu Toggle Button  */}
+          <button class="xl:hidden block">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              data-lucide="menu"
+              class="lucide lucide-menu w-7 h-7 text-slate-600 me-4 hover:text-primary"
+            >
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-	.social-links,
-	.social-links a {
-		display: flex;
-	}
-	@media (max-width: 720px) {
-		.social-links {
-			display: none;
-		}
-	}
-</style>
+          {/*  Navbar Brand Logo  */}
+          <a href="home.html">
+            <img
+              src="../assets/logo-dark-6dbab3e1.png"
+              alt="logo"
+              class="h-10 flex dark:hidden"
+            />
+          </a>
+          <img
+            src="../assets/logo-light-35c89c2c.png"
+            alt="logo"
+            class="h-10 hidden dark:flex"
+          />
+        </div>
+      </div>
+    </div>
+    {/*  Navigation Menu  */}
+    {/*  el menu del nav esta siendo pintado por la directiva v-for  */}
+    <ul class="xl:flex 2xl:ml-60 items-center justify-center hidden relative">
+      {
+        headerContent.items.map((item) => (
+          <li class="dark:text-slate-300">
+            {item.innerItems ? (
+              <Dropdown item={item} customStyle="mt-3 min-w-48 -left-8" />
+            ) : item.megaMenuContent ? (
+              <MegaMenu item={item} />
+            ) : (
+              <a class="cursor-pointer py-2 px-4">{item.name}</a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+
+    <ul class="flex items-center justify-end gap-x-6">
+      {/*  Search Form Input  */}
+      <li class="2xl:flex relative hidden">
+        <input
+          class="ps-10 pe-4 py-2.5 block w-64 border border-transparent placeholder-orange-500 rounded-full text-sm bg-orange-400/40 text-primary focus:border-orange-600 focus:outline-none"
+          placeholder="Search for items..."
+          type="search"
+        />
+      </li>
+      <span class="absolute start-4 top-3 cursor-pointer">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          data-lucide="search"
+          class="lucide lucide-search w-4 h-4 text-orange-500"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </span>
+    </ul>
+
+    {/*  Search Button (small screen)  */}
+    <li class="2xl:hidden flex cursor-pointer">
+      <button
+        class="relative flex text-base transition-all text-slate-600 hover:text-primary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          data-lucide="search"
+          class="lucide lucide-search w-5 h-5"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </button>
+    </li>
+
+    {/*  Cart Page link  */}
+    <li class="flex">
+      <a
+        href="#"
+        class="relative flex text-base transition-all text-slate-600 hover:text-primary dark:text-slate-400"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          data-lucide="shopping-bag"
+          class="lucide lucide-shopping-bag w-5 h-5"
+        >
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+          <path d="M3 6h18"></path>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span
+          class="absolute z-10 -top-2.5 end-0 inline-flex items-center justify-center p-1 h-5 w-5 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 bg-red-500 rounded-full"
+        >
+          1
+        </span>
+      </a>
+    </li>
+
+    {/*  User Dropdown  */}
+    <li class="flex">
+      <div class="relative inline-flex">
+        <Dropdown
+          item={headerContent.userList}
+          is-user-list={true}
+          customStyle={"mt-3 min-w-44 sm:-left-20 -left-32 absolute"}
+        />
+      </div>
+    </li>
+  </div>
+</header>
+<div
+  class:list={[{ hidden: !isOpenMenu }]}
+  class="xl:hidden h-svh w-full absolute top-0 z-20 bg-gray-900/50"
+>
+</div>
+<div
+  class:list={[{ hidden: !isOpenMenu }]}
+  class="w-3/4 xl:hidden absolute top-0 z-30 bg-white h-svh"
+>
+  <div
+    class="border-b-2 border-gray-100 dark:border-gray-700 items-center h-14 flex"
+  >
+    <img
+      src="../assets/logo-dark-6dbab3e1.png"
+      alt="darkLogo"
+      class="mt-1 h-10 inline-block dark:hidden ml-16"
+    />
+  </div>
+  <img
+    src="../assets/logo-light-35c89c2c.png"
+    alt="lightLogo"
+    class="mt-1 h-10 hidden dark:inline-block ml-16"
+  />
+</div>
+<ul class="mt-6 space-y-4 font-medium text-sm pl-4">
+  {
+    headerContent.itemsMobile.map((item, index) => (
+      <li class="dark:text-slate-300" key={index}>
+        {item.innerItems ? (
+          <Dropdown {item} customStyle={"mt-3 min-w-48 -left-8"} />
+        ) : (
+          <a class="cursor-pointer py-2 px-4">{item.name}</a>
+        )}
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,49 @@
+---
+// Button.astro
+import type { HTMLAttributes } from 'astro/types';
+
+type ButtonVariant = 'Primary' | 'IconText' | 'Large' | 'Icon';
+
+interface Props extends HTMLAttributes<'button'> {
+  text?: string;
+  textCustomStyles?: string;
+  iconCustomStyles?: string;
+  variant: ButtonVariant;
+}
+
+const { 
+  text, 
+  textCustomStyles = '', 
+  iconCustomStyles = '', 
+  variant,
+  ...rest 
+} = Astro.props;
+
+const paddingClasses: Record<ButtonVariant, string> = {
+  Primary: 'px-6 py-2',
+  IconText: 'px-6 py-2',
+  Large: 'py-4 px-7',
+  Icon: 'p-3',
+};
+
+const hasIcon = variant === 'Icon' || variant === 'IconText';
+const showText = variant !== 'Icon';
+---
+
+<button 
+  class:list={[
+    'cursor-pointer rounded-full m-1 text-white bg-orange-500',
+    paddingClasses[variant],
+    textCustomStyles
+  ]}
+  {...rest}
+>
+  <span class="flex items-center">
+    {hasIcon && (
+      <span class:list={['h-6 w-6 [&>svg]:h-full [&>svg]:w-full', iconCustomStyles, { 'pr-1': variant === 'IconText' }]}>
+        <slot name="icon" />
+      </span>
+    )}
+    {showText && text}
+  </span>
+</button>
