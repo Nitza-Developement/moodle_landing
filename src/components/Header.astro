@@ -1,13 +1,16 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { Image } from "astro:assets";
 import MegaMenu from "./MegaMenu.astro";
 import Dropdown from "./Dropdown.astro";
-import type { HeaderContent } from '../types/headers';
+
+import lightImage from "../assets/logo-light-35c89c2c.png";
+import darkImage from "../assets/logo-dark-6dbab3e1.png";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const headerContent : HeaderContent = t('header');
+const headerContent = t("header");
 const isOpenMenu = false;
 ---
 
@@ -19,7 +22,7 @@ const isOpenMenu = false;
       <div class="flex items-center justify-between p-4">
         <div class="flex">
           {/*  Mobile Menu Toggle Button  */}
-          <button class="xl:hidden block">
+          <button id="mobile-menu-toggle" class="xl:hidden block">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -41,16 +44,20 @@ const isOpenMenu = false;
 
           {/*  Navbar Brand Logo  */}
           <a href="home.html">
-            <img
-              src="../assets/logo-dark-6dbab3e1.png"
+            <Image
+              src={darkImage}
               alt="logo"
               class="h-10 flex dark:hidden"
+              width={darkImage.width}
+              height={darkImage.height}
             />
           </a>
-          <img
-            src="../assets/logo-light-35c89c2c.png"
+          <Image
+            src={darkImage}
             alt="logo"
             class="h-10 hidden dark:flex"
+            width={darkImage.width}
+            height={darkImage.height}
           />
         </div>
       </div>
@@ -169,40 +176,104 @@ const isOpenMenu = false;
     </li>
   </div>
 </header>
+
+{/* Mobile Menu Overlay */}
 <div
-  class:list={[{ hidden: !isOpenMenu }]}
-  class="xl:hidden h-svh w-full absolute top-0 z-20 bg-gray-900/50"
+  id="mobile-menu-overlay"
+  class="hidden fixed inset-0 z-20 bg-gray-900/50 transition-opacity duration-300"
 >
 </div>
+
+{/* Mobile Menu Sidebar */}
 <div
-  class:list={[{ hidden: !isOpenMenu }]}
-  class="w-3/4 xl:hidden absolute top-0 z-30 bg-white h-svh"
+  id="mobile-menu-sidebar"
+  class="fixed top-0 left-0 z-30 w-3/4 h-full bg-white dark:bg-slate-900 shadow-xl transform -translate-x-full transition-transform duration-300 ease-in-out xl:hidden"
 >
-  <div
-    class="border-b-2 border-gray-100 dark:border-gray-700 items-center h-14 flex"
-  >
-    <img
-      src="../assets/logo-dark-6dbab3e1.png"
-      alt="darkLogo"
-      class="mt-1 h-10 inline-block dark:hidden ml-16"
-    />
+  <div class="flex flex-col h-full">
+    <div
+      class="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800"
+    >
+      <div class="flex items-center">
+        <Image
+          src={darkImage}
+          alt="logo"
+          class="h-8 dark:hidden"
+          width={darkImage.width}
+          height={darkImage.height}
+        />
+        <Image
+          src={lightImage}
+          alt="logo"
+          class="h-8 hidden dark:block"
+          width={lightImage.width}
+          height={lightImage.height}
+        />
+      </div>
+      <button
+        id="mobile-menu-close"
+        class="p-2 text-gray-500 hover:text-primary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-x"
+          ><line x1="18" y1="6" x2="6" y2="18"></line><line
+            x1="6"
+            y1="6"
+            x2="18"
+            y2="18"></line></svg
+        >
+      </button>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto p-4">
+      <ul class="space-y-2">
+        {
+          headerContent.itemsMobile.map((item, index) => (
+            <li class="dark:text-slate-300" key={index}>
+              {item.innerItems ? (
+                <Dropdown item={item} customStyle={"mt-1 w-full"} />
+              ) : (
+                <a class="block py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
+                  {item.name}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
   </div>
-  <img
-    src="../assets/logo-light-35c89c2c.png"
-    alt="lightLogo"
-    class="mt-1 h-10 hidden dark:inline-block ml-16"
-  />
 </div>
-<ul class="mt-6 space-y-4 font-medium text-sm pl-4">
-  {
-    headerContent.itemsMobile.map((item, index) => (
-      <li class="dark:text-slate-300" key={index}>
-        {item.innerItems ? (
-          <Dropdown {item} customStyle={"mt-3 min-w-48 -left-8"} />
-        ) : (
-          <a class="cursor-pointer py-2 px-4">{item.name}</a>
-        )}
-      </li>
-    ))
-  }
-</ul>
+
+<script>
+  const setupMobileMenu = () => {
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+    const closeBtn = document.getElementById("mobile-menu-close");
+    const overlay = document.getElementById("mobile-menu-overlay");
+    const sidebar = document.getElementById("mobile-menu-sidebar");
+
+    const toggleMenu = () => {
+      sidebar?.classList.toggle("-translate-x-full");
+      overlay?.classList.toggle("hidden");
+      document.body.classList.toggle("overflow-hidden");
+    };
+
+    toggleBtn?.addEventListener("click", toggleMenu);
+    closeBtn?.addEventListener("click", toggleMenu);
+    overlay?.addEventListener("click", toggleMenu);
+  };
+
+  // Run on initial load
+  setupMobileMenu();
+
+  // Run on view transitions if using them
+  document.addEventListener("astro:after-swap", setupMobileMenu);
+</script>
