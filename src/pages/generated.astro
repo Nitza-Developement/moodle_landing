@@ -1,0 +1,2089 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MetisHost – Hosting Moodle 100% Gestionado en España</title>
+        <meta
+            name="description"
+            content="El hosting Moodle más rápido y fiable de España. Autoscaling real, soporte humano en español y precio fijo sin sustos."
+        />
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Lucide Icons -->
+        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"
+        ></script>
+
+        <style>
+            :root {
+                --primary: #f97316;
+                --primary-dark: #ea580c;
+                --primary-light: #fed7aa;
+                --primary-subtle: #fff7ed;
+                --text-dark: #1a1a1a;
+                --text-muted: #6b7280;
+                --text-light: #9ca3af;
+                --bg-white: #ffffff;
+                --bg-light: #fafafa;
+                --bg-alt: #f3f4f6;
+                --border: #e5e7eb;
+                --font-display: "Fraunces", Georgia, serif;
+                --font-body: "DM Sans", system-ui, sans-serif;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: var(--font-body);
+                color: var(--text-dark);
+                background: var(--bg-white);
+                line-height: 1.6;
+                font-size: 16px;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* Typography */
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: var(--font-display);
+                font-weight: 600;
+                line-height: 1.2;
+            }
+
+            h1 {
+                font-size: clamp(2.5rem, 5vw, 3.75rem);
+            }
+            h2 {
+                font-size: clamp(2rem, 4vw, 2.75rem);
+            }
+            h3 {
+                font-size: clamp(1.25rem, 2vw, 1.5rem);
+            }
+
+            p {
+                color: var(--text-muted);
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            /* Container */
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+
+            /* Buttons */
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 14px 28px;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 15px;
+                transition: all 0.2s ease;
+                cursor: pointer;
+                border: none;
+                font-family: var(--font-body);
+            }
+
+            .btn-primary {
+                background: var(--primary);
+                color: white;
+                box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+            }
+
+            .btn-primary:hover {
+                background: var(--primary-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+            }
+
+            .btn-secondary {
+                background: white;
+                color: var(--text-dark);
+                border: 1px solid var(--border);
+            }
+
+            .btn-secondary:hover {
+                border-color: var(--primary);
+                color: var(--primary);
+            }
+
+            .btn-ghost {
+                background: transparent;
+                color: var(--primary);
+                padding: 14px 20px;
+            }
+
+            .btn-ghost:hover {
+                background: var(--primary-subtle);
+            }
+
+            /* Header */
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--border);
+            }
+
+            .header-inner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 72px;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 1.5rem;
+                color: var(--text-dark);
+            }
+
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                background: linear-gradient(
+                    135deg,
+                    var(--primary) 0%,
+                    var(--primary-dark) 100%
+                );
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+            .logo span {
+                color: var(--primary);
+            }
+
+            nav {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            nav a {
+                padding: 8px 16px;
+                font-size: 15px;
+                font-weight: 500;
+                color: var(--text-muted);
+                border-radius: 6px;
+                transition: all 0.2s;
+            }
+
+            nav a:hover {
+                color: var(--text-dark);
+                background: var(--bg-light);
+            }
+
+            .header-cta {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+            }
+
+            /* Hero */
+            .hero {
+                padding: 160px 0 100px;
+                background: linear-gradient(
+                    180deg,
+                    var(--primary-subtle) 0%,
+                    var(--bg-white) 100%
+                );
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: -200px;
+                width: 600px;
+                height: 600px;
+                background: radial-gradient(
+                    circle,
+                    rgba(249, 115, 22, 0.08) 0%,
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+
+            .hero-content {
+                max-width: 800px;
+                text-align: center;
+                margin: 0 auto;
+                position: relative;
+                z-index: 1;
+            }
+
+            .hero-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                background: white;
+                border: 1px solid var(--border);
+                border-radius: 50px;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--text-muted);
+                margin-bottom: 24px;
+                animation: fadeInUp 0.6s ease;
+            }
+
+            .hero-badge i {
+                color: var(--primary);
+            }
+
+            .hero h1 {
+                margin-bottom: 24px;
+                animation: fadeInUp 0.6s ease 0.1s both;
+            }
+
+            .hero h1 .highlight {
+                color: var(--primary);
+                position: relative;
+            }
+
+            .hero h1 .highlight::after {
+                content: "";
+                position: absolute;
+                bottom: 4px;
+                left: 0;
+                right: 0;
+                height: 8px;
+                background: var(--primary-light);
+                z-index: -1;
+                border-radius: 4px;
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+                color: var(--text-muted);
+                margin-bottom: 40px;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+                animation: fadeInUp 0.6s ease 0.2s both;
+            }
+
+            .hero-cta {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+                flex-wrap: wrap;
+                animation: fadeInUp 0.6s ease 0.3s both;
+            }
+
+            .hero-trust {
+                margin-top: 60px;
+                padding-top: 40px;
+                border-top: 1px solid var(--border);
+                animation: fadeInUp 0.6s ease 0.4s both;
+            }
+
+            .hero-trust p {
+                font-size: 14px;
+                color: var(--text-light);
+                margin-bottom: 20px;
+            }
+
+            .trust-badges {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 32px;
+                flex-wrap: wrap;
+            }
+
+            .trust-badge {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--text-muted);
+            }
+
+            .trust-badge i {
+                color: var(--primary);
+            }
+
+            /* Features Grid */
+            .features {
+                padding: 100px 0;
+            }
+
+            .section-header {
+                text-align: center;
+                max-width: 600px;
+                margin: 0 auto 60px;
+            }
+
+            .section-label {
+                display: inline-block;
+                font-size: 13px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--primary);
+                margin-bottom: 16px;
+            }
+
+            .section-header h2 {
+                margin-bottom: 16px;
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+
+            .feature-card {
+                padding: 32px;
+                background: var(--bg-white);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                transition: all 0.3s ease;
+            }
+
+            .feature-card:hover {
+                border-color: var(--primary-light);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+                transform: translateY(-4px);
+            }
+
+            .feature-icon {
+                width: 48px;
+                height: 48px;
+                background: var(--primary-subtle);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 20px;
+                color: var(--primary);
+            }
+
+            .feature-card h3 {
+                margin-bottom: 12px;
+                font-size: 1.125rem;
+            }
+
+            .feature-card p {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            /* Pricing */
+            .pricing {
+                padding: 100px 0;
+                background: var(--bg-light);
+            }
+
+            .pricing-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+                align-items: start;
+            }
+
+            .pricing-card {
+                background: white;
+                border-radius: 16px;
+                padding: 32px;
+                border: 1px solid var(--border);
+                transition: all 0.3s ease;
+                position: relative;
+            }
+
+            .pricing-card.featured {
+                border-color: var(--primary);
+                box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15);
+                transform: scale(1.02);
+            }
+
+            .pricing-card.featured::before {
+                content: "Más popular";
+                position: absolute;
+                top: -12px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--primary);
+                color: white;
+                padding: 4px 16px;
+                border-radius: 50px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+
+            .pricing-card:hover {
+                border-color: var(--primary-light);
+            }
+
+            .plan-name {
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--primary);
+                margin-bottom: 8px;
+            }
+
+            .plan-price {
+                display: flex;
+                align-items: baseline;
+                gap: 4px;
+                margin-bottom: 8px;
+            }
+
+            .plan-price .currency {
+                font-size: 1.25rem;
+                font-weight: 600;
+            }
+
+            .plan-price .amount {
+                font-family: var(--font-display);
+                font-size: 3rem;
+                font-weight: 700;
+                line-height: 1;
+            }
+
+            .plan-price .period {
+                font-size: 15px;
+                color: var(--text-muted);
+            }
+
+            .plan-desc {
+                font-size: 14px;
+                color: var(--text-muted);
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 20px;
+            }
+
+            .plan-features {
+                list-style: none;
+                margin-bottom: 24px;
+            }
+
+            .plan-features li {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                font-size: 14px;
+                color: var(--text-muted);
+                margin-bottom: 12px;
+            }
+
+            .plan-features li i {
+                color: var(--primary);
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            .pricing-card .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .plan-capacity {
+                margin-top: 16px;
+                padding-top: 16px;
+                border-top: 1px solid var(--border);
+                text-align: center;
+            }
+
+            .plan-capacity span {
+                font-size: 13px;
+                color: var(--text-light);
+            }
+
+            .plan-capacity strong {
+                color: var(--text-dark);
+            }
+
+            /* Tech Stack */
+            .tech-stack {
+                padding: 100px 0;
+            }
+
+            .tech-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 60px;
+                align-items: center;
+            }
+
+            .tech-content h2 {
+                margin-bottom: 20px;
+            }
+
+            .tech-content > p {
+                font-size: 1.125rem;
+                margin-bottom: 32px;
+            }
+
+            .tech-list {
+                display: grid;
+                gap: 16px;
+            }
+
+            .tech-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 16px;
+                background: var(--bg-light);
+                border-radius: 12px;
+            }
+
+            .tech-item i {
+                color: var(--primary);
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            .tech-item h4 {
+                font-family: var(--font-body);
+                font-size: 15px;
+                font-weight: 600;
+                margin-bottom: 4px;
+            }
+
+            .tech-item p {
+                font-size: 14px;
+                margin: 0;
+            }
+
+            .tech-visual {
+                background: linear-gradient(
+                    135deg,
+                    var(--primary-subtle) 0%,
+                    var(--bg-light) 100%
+                );
+                border-radius: 24px;
+                padding: 40px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .tech-visual::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                right: -50%;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(
+                    circle,
+                    rgba(249, 115, 22, 0.1) 0%,
+                    transparent 60%
+                );
+            }
+
+            .server-diagram {
+                position: relative;
+                z-index: 1;
+            }
+
+            .server-node {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                background: white;
+                padding: 20px;
+                border-radius: 12px;
+                margin-bottom: 16px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                border: 1px solid var(--border);
+            }
+
+            .server-node:last-child {
+                margin-bottom: 0;
+            }
+
+            .node-icon {
+                width: 48px;
+                height: 48px;
+                background: var(--primary);
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+            .node-info h4 {
+                font-family: var(--font-body);
+                font-size: 15px;
+                font-weight: 600;
+                margin-bottom: 4px;
+            }
+
+            .node-info p {
+                font-size: 13px;
+                margin: 0;
+            }
+
+            .node-status {
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+                color: #10b981;
+                font-weight: 500;
+            }
+
+            .node-status::before {
+                content: "";
+                width: 8px;
+                height: 8px;
+                background: #10b981;
+                border-radius: 50%;
+                animation: pulse 2s infinite;
+            }
+
+            /* Comparison */
+            .comparison {
+                padding: 100px 0;
+                background: var(--bg-light);
+            }
+
+            .comparison-table {
+                background: white;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            }
+
+            .comparison-table table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 20px 24px;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .comparison-table thead {
+                background: var(--bg-light);
+            }
+
+            .comparison-table th {
+                font-weight: 600;
+                font-size: 14px;
+                color: var(--text-muted);
+            }
+
+            .comparison-table th:first-child {
+                font-size: 15px;
+                color: var(--text-dark);
+            }
+
+            .comparison-table th.highlight {
+                background: var(--primary);
+                color: white;
+            }
+
+            .comparison-table td {
+                font-size: 15px;
+            }
+
+            .comparison-table td.highlight {
+                background: var(--primary-subtle);
+                font-weight: 500;
+            }
+
+            .comparison-table tr:last-child td {
+                border-bottom: none;
+            }
+
+            .check-yes {
+                color: #10b981;
+            }
+
+            .check-no {
+                color: var(--text-light);
+            }
+
+            /* FAQ */
+            .faq {
+                padding: 100px 0;
+            }
+
+            .faq-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .faq-item {
+                padding: 24px;
+                background: var(--bg-light);
+                border-radius: 12px;
+                border: 1px solid transparent;
+                transition: all 0.2s;
+            }
+
+            .faq-item:hover {
+                border-color: var(--primary-light);
+                background: white;
+            }
+
+            .faq-item h3 {
+                font-size: 1rem;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .faq-item h3 i {
+                color: var(--primary);
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            .faq-item p {
+                font-size: 15px;
+                padding-left: 32px;
+            }
+
+            /* CTA Section */
+            .cta-section {
+                padding: 100px 0;
+                background: linear-gradient(
+                    135deg,
+                    var(--text-dark) 0%,
+                    #2d2d2d 100%
+                );
+                position: relative;
+                overflow: hidden;
+            }
+
+            .cta-section::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                left: -25%;
+                width: 50%;
+                height: 200%;
+                background: radial-gradient(
+                    circle,
+                    rgba(249, 115, 22, 0.15) 0%,
+                    transparent 60%
+                );
+            }
+
+            .cta-content {
+                text-align: center;
+                position: relative;
+                z-index: 1;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .cta-content h2 {
+                color: white;
+                margin-bottom: 16px;
+            }
+
+            .cta-content p {
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 1.125rem;
+                margin-bottom: 32px;
+            }
+
+            .cta-buttons {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+
+            .cta-guarantee {
+                margin-top: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+
+            .guarantee-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+            .guarantee-item i {
+                color: var(--primary);
+            }
+
+            /* Footer */
+            footer {
+                background: var(--text-dark);
+                color: rgba(255, 255, 255, 0.7);
+                padding: 60px 0 30px;
+            }
+
+            .footer-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: 48px;
+                margin-bottom: 48px;
+            }
+
+            .footer-brand .logo {
+                color: white;
+                margin-bottom: 16px;
+            }
+
+            .footer-brand p {
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.5);
+                margin-bottom: 20px;
+            }
+
+            .footer-contact {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .footer-contact a {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.7);
+                transition: color 0.2s;
+            }
+
+            .footer-contact a:hover {
+                color: var(--primary);
+            }
+
+            .footer-column h4 {
+                font-family: var(--font-body);
+                font-size: 14px;
+                font-weight: 600;
+                color: white;
+                margin-bottom: 20px;
+            }
+
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .footer-links a {
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.5);
+                transition: color 0.2s;
+            }
+
+            .footer-links a:hover {
+                color: var(--primary);
+            }
+
+            .footer-bottom {
+                padding-top: 30px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .footer-bottom p {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            .footer-legal {
+                display: flex;
+                gap: 24px;
+            }
+
+            .footer-legal a {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.4);
+                transition: color 0.2s;
+            }
+
+            .footer-legal a:hover {
+                color: var(--primary);
+            }
+
+            /* Animations */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            /* Responsive */
+            @media (max-width: 1024px) {
+                .pricing-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .pricing-card.featured {
+                    transform: none;
+                }
+
+                .tech-grid {
+                    grid-template-columns: 1fr;
+                    gap: 40px;
+                }
+
+                .tech-visual {
+                    order: -1;
+                }
+
+                .footer-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .header-inner nav,
+                .header-cta {
+                    display: none;
+                }
+
+                .mobile-menu-btn {
+                    display: block;
+                }
+
+                .features-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .pricing-grid {
+                    grid-template-columns: 1fr;
+                    max-width: 400px;
+                    margin: 0 auto;
+                }
+
+                .faq-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .comparison-table {
+                    overflow-x: auto;
+                }
+
+                .comparison-table table {
+                    min-width: 600px;
+                }
+
+                .footer-grid {
+                    grid-template-columns: 1fr;
+                    gap: 32px;
+                }
+
+                .footer-bottom {
+                    flex-direction: column;
+                    text-align: center;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="container header-inner">
+                <a href="/" class="logo">
+                    <div class="logo-icon">
+                        <i
+                            data-lucide="graduation-cap"
+                            style="width: 20px; height: 20px;"></i>
+                    </div>
+                    Metis<span>Host</span>
+                </a>
+
+                <nav>
+                    <a href="#features">Características</a>
+                    <a href="#pricing">Precios</a>
+                    <a href="#tech">Tecnología</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="/blog">Blog</a>
+                    <a href="/about">Nosotros</a>
+                </nav>
+
+                <div class="header-cta">
+                    <a href="/login" class="btn btn-ghost">Acceder</a>
+                    <a href="#trial" class="btn btn-primary">Prueba gratis</a>
+                </div>
+
+                <button class="mobile-menu-btn" aria-label="Menú">
+                    <i data-lucide="menu" style="width: 24px; height: 24px;"
+                    ></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i
+                            data-lucide="shield-check"
+                            style="width: 16px; height: 16px;"></i>
+                        100% infraestructura en la UE · Conforme RGPD
+                    </div>
+
+                    <h1>
+                        Tu Moodle, siempre en pie.<br />
+                        <span class="highlight">Incluso en exámenes.</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Hosting Moodle gestionado con autoscaling real, soporte
+                        humano en español y precio fijo. Porque un examen caído
+                        no es solo un problema técnico.
+                    </p>
+
+                    <div class="hero-cta">
+                        <a href="#trial" class="btn btn-primary">
+                            <i
+                                data-lucide="rocket"
+                                style="width: 18px; height: 18px;"></i>
+                            Empezar prueba gratis
+                        </a>
+                        <a href="#pricing" class="btn btn-secondary">
+                            Ver planes y precios
+                        </a>
+                    </div>
+
+                    <div class="hero-trust">
+                        <p>Infraestructura de confianza</p>
+                        <div class="trust-badges">
+                            <div class="trust-badge">
+                                <i
+                                    data-lucide="server"
+                                    style="width: 18px; height: 18px;"></i>
+                                Hetzner Cloud (Alemania)
+                            </div>
+                            <div class="trust-badge">
+                                <i
+                                    data-lucide="database"
+                                    style="width: 18px; height: 18px;"></i>
+                                PostgreSQL 16 + Redis
+                            </div>
+                            <div class="trust-badge">
+                                <i
+                                    data-lucide="shield"
+                                    style="width: 18px; height: 18px;"></i>
+                                Cloudflare WAF
+                            </div>
+                            <div class="trust-badge">
+                                <i
+                                    data-lucide="clock"
+                                    style="width: 18px; height: 18px;"></i>
+                                Soporte en &lt;4h
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features" id="features">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Por qué MetisHost</span>
+                    <h2>La sabiduría de Metis, aplicada a tu hosting</h2>
+                    <p>
+                        Como la titánide del consejo sabio, anticipamos los
+                        problemas antes de que ocurran.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i
+                                data-lucide="trending-up"
+                                style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <h3>Autoscaling real</h3>
+                        <p>
+                            Cuando tu CPU supera el 70% durante 3 minutos,
+                            levantamos servidores adicionales automáticamente.
+                            Sin intervención, sin caídas.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i
+                                data-lucide="message-circle"
+                                style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <h3>Soporte humano en español</h3>
+                        <p>
+                            Hablas con la misma persona que mantiene tu Moodle.
+                            Respuesta garantizada en menos de 4 horas, cualquier
+                            día del año.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i
+                                data-lucide="euro"
+                                style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <h3>Precio fijo, sin sustos</h3>
+                        <p>
+                            Da igual que tengas un pico de 500 alumnos en
+                            examen. Tu factura no cambia. Así de simple.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i
+                                data-lucide="shield-check"
+                                style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <h3>100% conforme RGPD</h3>
+                        <p>
+                            Infraestructura en Alemania y Finlandia. Empresa
+                            registrada en la UE. Contrato DPD listo para
+                            descargar.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i
+                                data-lucide="upload-cloud"
+                                style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <h3>Migración gratuita</h3>
+                        <p>
+                            Script automatizado que migra tu Moodle en 15-20
+                            minutos. Sin downtime perceptible, sin dolores de
+                            cabeza.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i
+                                data-lucide="database"
+                                style="width: 24px; height: 24px;"></i>
+                        </div>
+                        <h3>Backups automáticos</h3>
+                        <p>
+                            Copias diarias en un segundo datacenter.
+                            Restauración con un clic. Tus datos siempre a salvo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Planes y precios</span>
+                    <h2>Un plan para cada necesidad</h2>
+                    <p>
+                        Todos los planes incluyen soporte 24×7, backups diarios
+                        y SSL gratuito. Sin letra pequeña.
+                    </p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Start -->
+                    <div class="pricing-card">
+                        <div class="plan-name">Start</div>
+                        <div class="plan-price">
+                            <span class="currency">€</span>
+                            <span class="amount">29</span>
+                            <span class="period">/mes</span>
+                        </div>
+                        <p class="plan-desc">Para empezar sin complicaciones</p>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> 2 vCPU
+                                + 4 GB RAM
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> 80 GB
+                                NVMe
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> PostgreSQL
+                                16 + Redis
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Backups
+                                diarios (30 días)
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> SSL Let's
+                                Encrypt
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Cloudflare
+                                Basic
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Soporte
+                                24×7
+                            </li>
+                        </ul>
+
+                        <a href="#trial" class="btn btn-secondary"
+                            >Empezar prueba</a
+                        >
+
+                        <div class="plan-capacity">
+                            <span
+                                >Hasta <strong>100-120</strong> alumnos concurrentes</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Pro -->
+                    <div class="pricing-card featured">
+                        <div class="plan-name">Pro</div>
+                        <div class="plan-price">
+                            <span class="currency">€</span>
+                            <span class="amount">59</span>
+                            <span class="period">/mes</span>
+                        </div>
+                        <p class="plan-desc">El equilibrio perfecto</p>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> 4 vCPU
+                                + 8 GB RAM
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> 160 GB
+                                NVMe
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Todo lo
+                                del Start +
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Cloudflare
+                                Pro incluido
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Entorno
+                                staging (1 clic)
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> BigBlueButton
+                                (50 usuarios)
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Estadísticas
+                                avanzadas
+                            </li>
+                        </ul>
+
+                        <a href="#trial" class="btn btn-primary"
+                            >Empezar prueba</a
+                        >
+
+                        <div class="plan-capacity">
+                            <span
+                                >Hasta <strong>250-300</strong> alumnos concurrentes</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Business -->
+                    <div class="pricing-card">
+                        <div class="plan-name">Business</div>
+                        <div class="plan-price">
+                            <span class="currency">€</span>
+                            <span class="amount">99</span>
+                            <span class="period">/mes</span>
+                        </div>
+                        <p class="plan-desc">Para picos de exámenes intensos</p>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> 6 vCPU
+                                + 16 GB RAM
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> 300 GB
+                                NVMe
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Todo lo
+                                del Pro +
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Autoscaling
+                                automático
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Backups
+                                cada 6h
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Anti-DDoS
+                                avanzado
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Soporte
+                                prioritario (&lt;1h)
+                            </li>
+                        </ul>
+
+                        <a href="#trial" class="btn btn-secondary"
+                            >Empezar prueba</a
+                        >
+
+                        <div class="plan-capacity">
+                            <span
+                                >Hasta <strong>500-600</strong> alumnos concurrentes</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Enterprise -->
+                    <div class="pricing-card">
+                        <div class="plan-name">Enterprise</div>
+                        <div class="plan-price">
+                            <span class="currency">€</span>
+                            <span class="amount">199</span>
+                            <span class="period">desde/mes</span>
+                        </div>
+                        <p class="plan-desc">Solución a medida</p>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Recursos
+                                dedicados
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Cluster
+                                Kubernetes
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> PostgreSQL
+                                clusterizado
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Soporte
+                                telefónico
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Canal
+                                Slack/Telegram
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> SLA 99.95%
+                                garantizado
+                            </li>
+                            <li>
+                                <i
+                                    data-lucide="check"
+                                    style="width: 16px; height: 16px;"></i> Consultoría
+                                inicial 3h
+                            </li>
+                        </ul>
+
+                        <a
+                            href="mailto:hola@metishost.es"
+                            class="btn btn-secondary">Contactar</a
+                        >
+
+                        <div class="plan-capacity">
+                            <span
+                                >Hasta <strong>800-3.000+</strong> alumnos concurrentes</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <p
+                    style="text-align: center; margin-top: 32px; font-size: 14px; color: var(--text-light);"
+                >
+                    * Precios sin IVA. Capacidad en actividades normales; en
+                    exámenes tipo test la capacidad es un 30-40% menor.
+                </p>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="tech-stack" id="tech">
+            <div class="container">
+                <div class="tech-grid">
+                    <div class="tech-content">
+                        <span class="section-label">Tecnología</span>
+                        <h2>Stack probado en producción</h2>
+                        <p>
+                            No experimentamos con tu plataforma. Usamos
+                            tecnologías maduras, optimizadas específicamente
+                            para Moodle.
+                        </p>
+
+                        <div class="tech-list">
+                            <div class="tech-item">
+                                <i
+                                    data-lucide="database"
+                                    style="width: 20px; height: 20px;"></i>
+                                <div>
+                                    <h4>PostgreSQL 16 + Patroni + etcd</h4>
+                                    <p>
+                                        Alta disponibilidad real con failover
+                                        automático. Redis para caché y sesiones.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="tech-item">
+                                <i
+                                    data-lucide="layers"
+                                    style="width: 20px; height: 20px;"></i>
+                                <div>
+                                    <h4>Docker Swarm + Traefik 3</h4>
+                                    <p>
+                                        Orquestación de contenedores con
+                                        certificados SSL automáticos y balanceo
+                                        inteligente.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="tech-item">
+                                <i
+                                    data-lucide="zap"
+                                    style="width: 20px; height: 20px;"></i>
+                                <div>
+                                    <h4>PHP 8.3 + OPcache + JIT</h4>
+                                    <p>
+                                        Máximo rendimiento con las últimas
+                                        optimizaciones de PHP.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="tech-item">
+                                <i
+                                    data-lucide="globe"
+                                    style="width: 20px; height: 20px;"></i>
+                                <div>
+                                    <h4>Cloudflare (caché + WAF)</h4>
+                                    <p>
+                                        CDN global, protección DDoS y firewall
+                                        de aplicaciones incluido.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-visual">
+                        <div class="server-diagram">
+                            <div class="server-node">
+                                <div class="node-icon">
+                                    <i
+                                        data-lucide="server"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="node-info">
+                                    <h4>Node 1 · Manager</h4>
+                                    <p>Swarm manager + Patroni leader + etcd</p>
+                                </div>
+                                <span class="node-status">Activo</span>
+                            </div>
+
+                            <div class="server-node">
+                                <div class="node-icon">
+                                    <i
+                                        data-lucide="server"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="node-info">
+                                    <h4>Node 2 · Worker</h4>
+                                    <p>Worker + Patroni replica + pgBouncer</p>
+                                </div>
+                                <span class="node-status">Activo</span>
+                            </div>
+
+                            <div class="server-node">
+                                <div class="node-icon">
+                                    <i
+                                        data-lucide="server"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="node-info">
+                                    <h4>Node 3 · Worker</h4>
+                                    <p>Worker + Patroni replica</p>
+                                </div>
+                                <span class="node-status">Activo</span>
+                            </div>
+
+                            <div
+                                class="server-node"
+                                style="opacity: 0.6; border-style: dashed;"
+                            >
+                                <div
+                                    class="node-icon"
+                                    style="background: var(--text-light);"
+                                >
+                                    <i
+                                        data-lucide="plus"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="node-info">
+                                    <h4>Node 4 · Autoscaling</h4>
+                                    <p>Se activa automáticamente en picos</p>
+                                </div>
+                                <span
+                                    class="node-status"
+                                    style="color: var(--text-light);"
+                                    >Standby</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison -->
+        <section class="comparison">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Comparativa</span>
+                    <h2>¿Por qué elegirnos?</h2>
+                    <p>Comparativa honesta con otras opciones del mercado.</p>
+                </div>
+
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th class="highlight">MetisHost</th>
+                                <th>Hosting genérico</th>
+                                <th>DIY (VPS propio)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Autoscaling automático</td>
+                                <td class="highlight"
+                                    ><i
+                                        data-lucide="check"
+                                        class="check-yes"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td
+                                    ><i
+                                        data-lucide="x"
+                                        class="check-no"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td
+                                    ><i
+                                        data-lucide="x"
+                                        class="check-no"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                            </tr>
+                            <tr>
+                                <td>Soporte especializado Moodle</td>
+                                <td class="highlight"
+                                    ><i
+                                        data-lucide="check"
+                                        class="check-yes"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td
+                                    ><i
+                                        data-lucide="x"
+                                        class="check-no"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td
+                                    ><i
+                                        data-lucide="x"
+                                        class="check-no"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL + Redis optimizado</td>
+                                <td class="highlight"
+                                    ><i
+                                        data-lucide="check"
+                                        class="check-yes"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td
+                                    ><i
+                                        data-lucide="x"
+                                        class="check-no"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td>Tú lo configuras</td>
+                            </tr>
+                            <tr>
+                                <td>Alta disponibilidad (HA)</td>
+                                <td class="highlight"
+                                    ><i
+                                        data-lucide="check"
+                                        class="check-yes"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td
+                                    ><i
+                                        data-lucide="x"
+                                        class="check-no"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td>Muy complejo</td>
+                            </tr>
+                            <tr>
+                                <td>Actualizaciones gestionadas</td>
+                                <td class="highlight">&lt;48h tras release</td>
+                                <td
+                                    ><i
+                                        data-lucide="x"
+                                        class="check-no"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td>Manual</td>
+                            </tr>
+                            <tr>
+                                <td>Precio predecible</td>
+                                <td class="highlight"
+                                    ><i
+                                        data-lucide="check"
+                                        class="check-yes"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                                <td>Variable por tráfico</td>
+                                <td
+                                    ><i
+                                        data-lucide="check"
+                                        class="check-yes"
+                                        style="width: 18px; height: 18px;"
+                                    ></i></td
+                                >
+                            </tr>
+                            <tr>
+                                <td>Tiempo de setup</td>
+                                <td class="highlight">15 minutos</td>
+                                <td>1-2 horas</td>
+                                <td>1-2 días</td>
+                            </tr>
+                            <tr>
+                                <td>Noches sin dormir</td>
+                                <td class="highlight">0</td>
+                                <td>Algunas</td>
+                                <td>Muchas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq" id="faq">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label">Preguntas frecuentes</span>
+                    <h2>¿Tienes dudas?</h2>
+                    <p>Respuestas directas a las preguntas más comunes.</p>
+                </div>
+
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>
+                            <i
+                                data-lucide="help-circle"
+                                style="width: 18px; height: 18px;"></i>
+                            ¿Puedo migrar mi Moodle existente?
+                        </h3>
+                        <p>
+                            Sí, la migración es gratuita y automatizada. Nuestro
+                            script transfiere tu base de datos, archivos y
+                            configuración en 15-20 minutos con downtime mínimo.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>
+                            <i
+                                data-lucide="help-circle"
+                                style="width: 18px; height: 18px;"></i>
+                            ¿Qué pasa si tengo un pico de usuarios?
+                        </h3>
+                        <p>
+                            Nuestro sistema detecta automáticamente cuando la
+                            carga supera el 70% y levanta servidores
+                            adicionales. Tu precio no cambia, hagas lo que
+                            hagas.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>
+                            <i
+                                data-lucide="help-circle"
+                                style="width: 18px; height: 18px;"></i>
+                            ¿Dónde están los servidores?
+                        </h3>
+                        <p>
+                            En datacenters de Hetzner en Alemania (Falkenstein)
+                            y Finlandia (Helsinki). 100% UE, 100% conforme RGPD.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>
+                            <i
+                                data-lucide="help-circle"
+                                style="width: 18px; height: 18px;"></i>
+                            ¿Hacéis las actualizaciones de Moodle?
+                        </h3>
+                        <p>
+                            Sí. Las actualizaciones de seguridad críticas se
+                            aplican en menos de 48 horas. Las actualizaciones
+                            mayores las coordinamos contigo.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>
+                            <i
+                                data-lucide="help-circle"
+                                style="width: 18px; height: 18px;"></i>
+                            ¿Puedo usar BigBlueButton?
+                        </h3>
+                        <p>
+                            Desde el plan Pro, tienes BigBlueButton integrado
+                            con hasta 50 participantes simultáneos. Para más
+                            capacidad, contacta con nosotros.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>
+                            <i
+                                data-lucide="help-circle"
+                                style="width: 18px; height: 18px;"></i>
+                            ¿Qué soporte ofrecéis?
+                        </h3>
+                        <p>
+                            Soporte 24×7 por ticket y chat con respuesta
+                            garantizada en menos de 4 horas. En el plan
+                            Business, la respuesta media es menor a 1 hora.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>
+                            <i
+                                data-lucide="help-circle"
+                                style="width: 18px; height: 18px;"></i>
+                            ¿Hay compromiso de permanencia?
+                        </h3>
+                        <p>
+                            No. Puedes cancelar cuando quieras. Si pagas anual
+                            tienes descuento, pero no hay penalización por irte
+                            antes.
+                        </p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>
+                            <i
+                                data-lucide="help-circle"
+                                style="width: 18px; height: 18px;"></i>
+                            ¿Puedo probar antes de pagar?
+                        </h3>
+                        <p>
+                            Sí. Ofrecemos una prueba gratuita para que veas cómo
+                            funciona todo antes de comprometerte.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section" id="trial">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>¿Listo para olvidarte de los problemas?</h2>
+                    <p>
+                        Prueba MetisHost gratis y descubre lo que es tener un
+                        Moodle que simplemente funciona.
+                    </p>
+
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary">
+                            <i
+                                data-lucide="rocket"
+                                style="width: 18px; height: 18px;"></i>
+                            Empezar prueba gratis
+                        </a>
+                        <a
+                            href="mailto:hola@metishost.es"
+                            class="btn btn-secondary"
+                            style="background: transparent; border-color: rgba(255,255,255,0.3); color: white;"
+                        >
+                            <i
+                                data-lucide="mail"
+                                style="width: 18px; height: 18px;"></i>
+                            Contactar
+                        </a>
+                    </div>
+
+                    <div class="cta-guarantee">
+                        <div class="guarantee-item">
+                            <i
+                                data-lucide="credit-card"
+                                style="width: 16px; height: 16px;"></i>
+                            Sin tarjeta de crédito
+                        </div>
+                        <div class="guarantee-item">
+                            <i
+                                data-lucide="clock"
+                                style="width: 16px; height: 16px;"></i>
+                            Setup en 15 minutos
+                        </div>
+                        <div class="guarantee-item">
+                            <i
+                                data-lucide="arrow-right-left"
+                                style="width: 16px; height: 16px;"></i>
+                            Migración gratuita
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="/" class="logo">
+                            <div class="logo-icon">
+                                <i
+                                    data-lucide="graduation-cap"
+                                    style="width: 20px; height: 20px;"></i>
+                            </div>
+                            Metis<span>Host</span>
+                        </a>
+                        <p>
+                            Hosting Moodle 100% gestionado. Como Metis, la
+                            titánide de la sabiduría, anticipamos los problemas
+                            antes de que ocurran.
+                        </p>
+                        <div class="footer-contact">
+                            <a href="mailto:hola@metishost.es">
+                                <i
+                                    data-lucide="mail"
+                                    style="width: 16px; height: 16px;"></i>
+                                hola@metishost.es
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Producto</h4>
+                        <div class="footer-links">
+                            <a href="#features">Características</a>
+                            <a href="#pricing">Precios</a>
+                            <a href="#tech">Tecnología</a>
+                            <a href="#faq">FAQ</a>
+                            <a href="/changelog">Changelog</a>
+                        </div>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Empresa</h4>
+                        <div class="footer-links">
+                            <a href="/about">Sobre nosotros</a>
+                            <a href="/blog">Blog</a>
+                            <a href="/contacto">Contacto</a>
+                            <a href="/partners">Partners</a>
+                        </div>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Recursos</h4>
+                        <div class="footer-links">
+                            <a href="/docs">Documentación</a>
+                            <a href="/status">Estado del servicio</a>
+                            <a href="/migracion">Guía de migración</a>
+                            <a href="/comparativa">Comparativa</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2025 MetisHost. Todos los derechos reservados.</p>
+                    <div class="footer-legal">
+                        <a href="/legal/aviso-legal">Aviso legal</a>
+                        <a href="/legal/privacidad">Política de privacidad</a>
+                        <a href="/legal/cookies">Política de cookies</a>
+                        <a href="/legal/condiciones">Condiciones de servicio</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
