@@ -863,5 +863,42 @@
       "badge_text": "Opiniones",
       "title": "Que dicen sobre nosotros"
     }
-  }
+  },
+  "footer": {
+    "subscribe": {
+      "title": "Subscribe",
+      "text": "A Res is a self-service shop offering a wide variety of food, beverages & household products we’re engage with their clients & their team.",
+      "placeHolder": "Email address"
+    },
+    "reviews": {
+      "badge_text": "Testimonials",
+      "title": "What They Say About Us"
+    }
+  },
+  "reviews": [
+    {
+      "name": "Pepe",
+      "text": "I had a wonderful experience at this place. The service was impeccable from the moment we walked in. I ordered the seafood pasta, and it was delicious; the flavors were fresh and perfectly balanced. The atmosphere is cozy and perfect for a romantic dinner. I will definitely be back soon.",
+      "img": "https: //coderthemes.com/yum/assets/avatar1-25906796.png",
+      "stars": 5
+    },
+    {
+      "name": "Juan",
+      "text": "Este restaurante nunca decepciona. La hamburguesa que probé estaba jugosa y llena de sabor, acompañada de unas papas fritas crujientes que complementaron perfectamente la comida. El servicio fue rápido y amable, aunque el lugar estaba bastante lleno. Un gran sitio para disfrutar de una buena comida con amigos.",
+      "img": "https: //coderthemes.com/yum/assets/avatar2-189b0d01.png",
+      "stars": 4
+    },
+    {
+      "name": "Maria",
+      "text": "¡Qué joya de restaurante! La variedad en el menú es impresionante. Opté por el risotto de setas y fue una de las mejores decisiones que he tomado. La textura y el sabor eran excepcionales. Además, el personal fue muy atento y nos recomendó un vino que maridó a la perfección. Definitivamente, un lugar al que regresaré.",
+      "img": "https: //coderthemes.com/yum/assets/avatar3-2bbdc0fd.png",
+      "stars": 5
+    },
+    {
+      "name": "Claudia",
+      "text": "I went for dinner, and while the food was good, I felt that the service could improve. I ordered a salad that was fresh and well-presented, but the wait time was a bit long. The atmosphere is nice, but I would like them to be quicker in attending to customers. Still, I think it’s worth giving it another chance.",
+      "img": "https: //coderthemes.com/yum/assets/avatar4-85475652.png",
+      "stars": 3
+    }
+  ]
 }
