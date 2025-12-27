@@ -1,0 +1,67 @@
+---
+import TechItem from './ui/TechItem.astro';
+import ServerNode from './ui/ServerNode.astro';
+
+interface TechItemData {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface ServerData {
+  title: string;
+  description: string;
+  status: string;
+  active: boolean;
+}
+
+interface Props {
+  label: string;
+  title: string;
+  subtitle: string;
+  items: TechItemData[];
+  servers: ServerData[];
+}
+
+const { label, title, subtitle, items, servers } = Astro.props;
+---
+
+<section id="tech" class="py-24">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <!-- Content -->
+      <div>
+        <span class="section-label">{label}</span>
+        <h2 class="mb-5 text-[clamp(2rem,4vw,2.75rem)] dark:text-dark-text-primary">{title}</h2>
+        <p class="text-lg mb-8 text-text-muted dark:text-dark-text-muted">{subtitle}</p>
+
+        <div class="grid gap-4">
+          {items.map((item) => (
+            <TechItem 
+              icon={item.icon} 
+              title={item.title} 
+              description={item.description} 
+            />
+          ))}
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="bg-gradient-to-br from-primary-subtle to-bg-light rounded-3xl p-10 relative overflow-hidden order-first lg:order-last dark:from-dark-primary-subtle dark:to-dark-bg-tertiary">
+        <!-- Decorative gradient -->
+        <div class="absolute -top-1/2 -right-1/2 w-full h-full bg-[radial-gradient(circle,rgba(249,115,22,0.1)_0%,transparent_60%)]"></div>
+        
+        <div class="relative z-10">
+          {servers.map((server) => (
+            <ServerNode 
+              title={server.title} 
+              description={server.description} 
+              status={server.status}
+              active={server.active}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

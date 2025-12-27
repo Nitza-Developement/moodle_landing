@@ -1,0 +1,78 @@
+---
+import { Icon } from 'astro-icon/components';
+import Badge from './ui/Badge.astro';
+import Button from './ui/Button.astro';
+import TrustBadge from './ui/TrustBadge.astro';
+
+interface TrustBadgeData {
+  icon: string;
+  text: string;
+}
+
+interface Props {
+  badge: string;
+  title: {
+    line1: string;
+    highlight: string;
+  };
+  subtitle: string;
+  cta: {
+    primary: string;
+    secondary: string;
+  };
+  trust: {
+    label: string;
+    badges: TrustBadgeData[];
+  };
+}
+
+const { badge, title, subtitle, cta, trust } = Astro.props;
+---
+
+<section class="pt-40 pb-24 bg-gradient-to-b from-primary-subtle to-bg-white relative overflow-hidden dark:from-dark-primary-subtle dark:to-dark-bg-primary">
+  <!-- Decorative gradient -->
+  <div class="absolute top-0 -right-48 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(249,115,22,0.08)_0%,transparent_70%)] pointer-events-none dark:bg-[radial-gradient(circle,rgba(249,115,22,0.15)_0%,transparent_70%)]"></div>
+  
+  <div class="container-custom">
+    <div class="max-w-[800px] text-center mx-auto relative z-10">
+      <!-- Badge -->
+      <div class="animate-fade-in-up">
+        <Badge icon="shield-check">{badge}</Badge>
+      </div>
+
+      <!-- Title -->
+      <h1 class="mt-6 mb-6 text-[clamp(2.5rem,5vw,3.75rem)] animate-fade-in-up animate-delay-100 dark:text-dark-text-primary">
+        {title.line1}<br />
+        <span class="text-primary relative">
+          {title.highlight}
+          <span class="absolute bottom-1 left-0 right-0 h-2 bg-primary-light -z-10 rounded dark:bg-primary/30"></span>
+        </span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-xl text-text-muted max-w-[600px] mx-auto mb-10 animate-fade-in-up animate-delay-200 dark:text-dark-text-muted">
+        {subtitle}
+      </p>
+
+      <!-- CTA -->
+      <div class="flex items-center justify-center gap-4 flex-wrap animate-fade-in-up animate-delay-300">
+        <Button variant="primary" href="#trial" icon="rocket">
+          {cta.primary}
+        </Button>
+        <Button variant="secondary" href="#pricing">
+          {cta.secondary}
+        </Button>
+      </div>
+
+      <!-- Trust -->
+      <div class="mt-16 pt-10 border-t border-border animate-fade-in-up animate-delay-400 dark:border-dark-border">
+        <p class="text-sm text-text-light mb-5 dark:text-dark-text-light">{trust.label}</p>
+        <div class="flex items-center justify-center gap-8 flex-wrap">
+          {trust.badges.map((badge) => (
+            <TrustBadge icon={badge.icon} text={badge.text} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

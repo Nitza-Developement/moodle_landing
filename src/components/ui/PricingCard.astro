@@ -1,0 +1,79 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from './Button.astro';
+
+interface Props {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  capacity: string;
+  cta: string;
+  ctaHref?: string;
+  featured?: boolean;
+  featuredLabel?: string;
+}
+
+const { 
+  name, 
+  price, 
+  period, 
+  description, 
+  features, 
+  capacity, 
+  cta, 
+  ctaHref = '#trial',
+  featured = false,
+  featuredLabel = 'Más popular'
+} = Astro.props;
+---
+
+<div class:list={[
+  "bg-white rounded-2xl p-8 border transition-all duration-300 relative",
+  "dark:bg-dark-bg-secondary",
+  featured 
+    ? "border-primary shadow-[0_20px_40px_rgba(249,115,22,0.15)] scale-[1.02] dark:shadow-[0_20px_40px_rgba(249,115,22,0.25)]" 
+    : "border-border hover:border-primary-light dark:border-dark-border dark:hover:border-primary/50"
+]}>
+  {featured && (
+    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-xs font-semibold">
+      {featuredLabel}
+    </span>
+  )}
+
+  <div class="text-sm font-semibold text-primary mb-2">{name}</div>
+  
+  <div class="flex items-baseline gap-1 mb-2">
+    <span class="text-xl font-semibold dark:text-dark-text-primary">€</span>
+    <span class="font-display text-5xl font-bold leading-none dark:text-dark-text-primary">{price}</span>
+    <span class="text-[15px] text-text-muted dark:text-dark-text-muted">{period}</span>
+  </div>
+
+  <p class="text-sm text-text-muted pb-5 border-b border-border mb-5 dark:text-dark-text-muted dark:border-dark-border">
+    {description}
+  </p>
+
+  <ul class="mb-6 space-y-3">
+    {features.map((feature) => (
+      <li class="flex items-start gap-2.5 text-sm text-text-muted dark:text-dark-text-muted">
+        <Icon name="lucide:check" class="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+        {feature}
+      </li>
+    ))}
+  </ul>
+
+  <Button 
+    variant={featured ? 'primary' : 'secondary'} 
+    href={ctaHref}
+    class="w-full justify-center"
+  >
+    {cta}
+  </Button>
+
+  <div class="mt-4 pt-4 border-t border-border text-center dark:border-dark-border">
+    <span class="text-[13px] text-text-light dark:text-dark-text-light">
+      <span class="text-text-dark font-medium dark:text-dark-text-primary">{capacity}</span>
+    </span>
+  </div>
+</div>

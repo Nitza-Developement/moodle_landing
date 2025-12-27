@@ -1,0 +1,55 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from './ui/Button.astro';
+
+interface GuaranteeData {
+  icon: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  buttons: {
+    primary: string;
+    secondary: string;
+  };
+  guarantees: GuaranteeData[];
+}
+
+const { title, subtitle, buttons, guarantees } = Astro.props;
+---
+
+<section id="trial" class="py-24 bg-gradient-to-br from-text-dark to-[#2d2d2d] relative overflow-hidden">
+  <!-- Decorative gradient -->
+  <div class="absolute -top-1/2 -left-1/4 w-1/2 h-[200%] bg-[radial-gradient(circle,rgba(249,115,22,0.15)_0%,transparent_60%)]"></div>
+  
+  <div class="container-custom">
+    <div class="text-center relative z-10 max-w-[600px] mx-auto">
+      <h2 class="text-white mb-4 text-[clamp(2rem,4vw,2.75rem)]">{title}</h2>
+      <p class="text-white/70 text-lg mb-8">{subtitle}</p>
+
+      <div class="flex items-center justify-center gap-4 flex-wrap">
+        <Button variant="primary" href="#" icon="rocket">
+          {buttons.primary}
+        </Button>
+        <a 
+          href="mailto:hola@metishost.es" 
+          class="btn bg-transparent border border-white/30 text-white hover:bg-white/10"
+        >
+          <Icon name="lucide:mail" class="w-[18px] h-[18px]" />
+          {buttons.secondary}
+        </a>
+      </div>
+
+      <div class="mt-8 flex items-center justify-center gap-6 flex-wrap">
+        {guarantees.map((guarantee) => (
+          <div class="flex items-center gap-2 text-sm text-white/60">
+            <Icon name={`lucide:${guarantee.icon}`} class="w-4 h-4 text-primary" />
+            {guarantee.text}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

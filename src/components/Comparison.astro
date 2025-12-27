@@ -1,0 +1,78 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface CellData {
+  type: 'check' | 'text';
+  value: boolean | string;
+}
+
+interface RowData {
+  feature: string;
+  metishost: CellData;
+  generic: CellData;
+  diy: CellData;
+}
+
+interface Props {
+  label: string;
+  title: string;
+  subtitle: string;
+  headers: string[];
+  rows: RowData[];
+}
+
+const { label, title, subtitle, headers, rows } = Astro.props;
+
+const renderCell = (cell: CellData) => {
+  if (cell.type === 'check') {
+    return cell.value 
+      ? '<span class="text-emerald-500"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>'
+      : '<span class="text-text-light dark:text-dark-text-light"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>';
+  }
+  return cell.value;
+};
+---
+
+<section class="py-24 bg-bg-light dark:bg-dark-bg-secondary">
+  <div class="container-custom">
+    <!-- Header -->
+    <div class="text-center max-w-[600px] mx-auto mb-16">
+      <span class="section-label">{label}</span>
+      <h2 class="mb-4 text-[clamp(2rem,4vw,2.75rem)] dark:text-dark-text-primary">{title}</h2>
+      <p class="text-text-muted dark:text-dark-text-muted">{subtitle}</p>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:bg-dark-bg-tertiary">
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[600px] border-collapse">
+          <thead class="bg-bg-light dark:bg-dark-bg-secondary">
+            <tr>
+              {headers.map((header, index) => (
+                <th class:list={[
+                  "py-5 px-6 text-left text-sm font-semibold border-b border-border dark:border-dark-border",
+                  index === 0 ? "text-text-dark dark:text-dark-text-primary" : "text-text-muted dark:text-dark-text-muted",
+                  index === 1 && "bg-primary text-white"
+                ]}>
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, rowIndex) => (
+              <tr>
+                <td class="py-5 px-6 text-[15px] border-b border-border last:border-b-0 dark:border-dark-border dark:text-dark-text-primary">
+                  {row.feature}
+                </td>
+                <td class="py-5 px-6 text-[15px] border-b border-border last:border-b-0 bg-primary-subtle font-medium dark:bg-dark-primary-subtle dark:border-dark-border dark:text-dark-text-primary" set:html={renderCell(row.metishost)}></td>
+                <td class="py-5 px-6 text-[15px] border-b border-border last:border-b-0 dark:border-dark-border dark:text-dark-text-muted" set:html={renderCell(row.generic)}></td>
+                <td class="py-5 px-6 text-[15px] border-b border-border last:border-b-0 dark:border-dark-border dark:text-dark-text-muted" set:html={renderCell(row.diy)}></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

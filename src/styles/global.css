@@ -1,72 +1,96 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
 @import "tailwindcss";
 
-/* Estilos por defecto para las etiquetas de encabezado */
-* {
-  letter-spacing: 0.05em;
+@theme {
+  /* Fonts */
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", serif;
+
+  /* Colors - Light Mode */
+  --color-primary: rgb(245 130 32);
+  --color-primary-dark: rgb(215 110 22);
+  --color-primary-subtle: rgba(245, 130, 32, 0.1);
+  --color-text-dark: #0f172a;
+  --color-text-muted: #64748b;
+  --color-bg-white: #ffffff;
+  --color-bg-light: #f8fafc;
+  --color-border: #e2e8f0;
+
+  /* Colors - Dark Mode */
+  --color-dark-bg-primary: #020617;
+  --color-dark-bg-secondary: #0f172a;
+  --color-dark-bg-tertiary: #1e293b;
+  --color-dark-text-primary: #f8fafc;
+  --color-dark-text-muted: #94a3b8;
+  --color-dark-border: #1e293b;
+  --color-dark-primary-subtle: rgba(245, 130, 32, 0.15);
+
+  /* Animations */
+  --animate-delay-100: 0.1s;
+  --animate-delay-200: 0.2s;
+  --animate-delay-300: 0.3s;
+  --animate-delay-400: 0.4s;
 }
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-/* h1 */
-h1 {
-  font-size: 2.5em;
-  /* Tamaño de fuente */
-  font-weight: bold;
-  /* Peso de fuente */
-  margin: 0.67em 0;
-  /* Margen superior e inferior */
+  body {
+    @apply font-body text-text-dark bg-bg-white leading-relaxed antialiased;
+    @apply dark:bg-dark-bg-primary dark:text-dark-text-primary;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-semibold leading-tight;
+  }
+
+  p {
+    @apply text-text-muted dark:text-dark-text-muted;
+  }
 }
 
-/* h2 */
-h2 {
-  font-size: 2em;
-  /* Tamaño de fuente */
-  font-weight: bold;
-  /* Peso de fuente */
-  margin: 0.83em 0;
-  /* Margen superior e inferior */
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-semibold text-[15px] transition-all duration-200 cursor-pointer border-none font-body;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white shadow-[0_4px_14px_rgba(249,115,22,0.35)];
+    @apply hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(249,115,22,0.4)];
+  }
+
+  .btn-secondary {
+    @apply bg-white text-text-dark border border-border;
+    @apply hover:border-primary hover:text-primary;
+    @apply dark:bg-dark-bg-secondary dark:text-dark-text-primary dark:border-dark-border;
+    @apply dark:hover:border-primary dark:hover:text-primary;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-primary px-5 py-3.5;
+    @apply hover:bg-primary-subtle;
+    @apply dark:hover:bg-dark-primary-subtle;
+  }
+
+  .section-label {
+    @apply inline-block text-[13px] font-semibold uppercase tracking-wider text-primary mb-4;
+  }
+
+  .container-custom {
+    @apply max-w-[1200px] mx-auto px-6;
+  }
 }
 
-/* h3 */
-h3 {
-  font-size: 1.75em;
-  /* Tamaño de fuente */
-  font-weight: bold;
-  /* Peso de fuente */
-  margin: 1em 0;
-  /* Margen superior e inferior */
+@utility animate-delay-100 {
+  animation-delay: 0.1s;
 }
-
-/* h4 */
-h4 {
-  font-size: 1.5em;
-  /* Tamaño de fuente */
-  font-weight: bold;
-  /* Peso de fuente */
-  margin: 1.33em 0;
-  /* Margen superior e inferior */
+@utility animate-delay-200 {
+  animation-delay: 0.2s;
 }
-
-/* h5 */
-h5 {
-  font-size: 1.25em;
-  /* Tamaño de fuente */
-  font-weight: bold;
-  /* Peso de fuente */
-  margin: 1.67em 0;
-  /* Margen superior e inferior */
+@utility animate-delay-300 {
+  animation-delay: 0.3s;
 }
-
-/* h6 */
-h6 {
-  font-size: 1em;
-  /* Tamaño de fuente */
-  font-weight: bold;
-  /* Peso de fuente */
-  margin: 2em 0;
-  /* Margen superior e inferior */
+@utility animate-delay-400 {
+  animation-delay: 0.4s;
 }
