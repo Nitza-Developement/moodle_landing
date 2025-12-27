@@ -215,13 +215,26 @@ const uniqueId = `dropdown-${Math.random().toString(36).substr(2, 9)}`;
       togglePanel();
     });
 
+    let closeTimeout: ReturnType<typeof setTimeout> | null = null;
+
     // Hover handlers for xl screens
     dropdown.addEventListener("mouseenter", () => {
-      if (isXl) openPanel();
+      if (isXl) {
+        if (closeTimeout) {
+          clearTimeout(closeTimeout);
+          closeTimeout = null;
+        }
+        openPanel();
+      }
     });
 
     dropdown.addEventListener("mouseleave", () => {
-      if (isXl) closePanel();
+      if (isXl) {
+        closeTimeout = setTimeout(() => {
+          closePanel();
+          closeTimeout = null;
+        }, 150);
+      }
     });
 
     // Language change handlers
