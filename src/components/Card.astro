@@ -1,17 +1,17 @@
 ---
 interface Props {
-  imageLink: string;
+  imagenLink: string;
   title: string;
   text: string;
 }
 
-const { imageLink, title, text } = Astro.props;
+const { imagenLink, title, text } = Astro.props;
 ---
 
 <div class="rounded-md shadow-lg border dark:border-gray-900">
   <div class="p-6">
     <div class="mb-6">
-      <img src={imageLink} class="object-cover w-16 h-16" alt={title} />
+      <img src={imagenLink} class="object-cover w-16 h-16" alt={title} />
     </div>
     <h3 class="text-xl font-medium mb-6 dark:text-white">{title}</h3>
     <p class="text-base dark:text-gray-400">{text}</p>

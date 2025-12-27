@@ -1,4 +1,5 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import MainLayout from "../layouts/MainLayout.astro";
 import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
@@ -6,27 +7,24 @@ import Badge from "../components/Badge.astro";
 import Carrusel from "../components/Carrusel.astro";
 import ReviewBars from "../components/ReviewBars.astro";
 
-// i18n setup
-import en from "../i18n/locales/en.json";
-import es from "../i18n/locales/es.json";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
-const translations = { en, es };
-const locale = Astro.currentLocale ?? "en";
-const t = translations[locale as keyof typeof translations] ?? en;
-
-// Get cards content from translations
-const cardsContent = t.cardsContent ?? [];
+const cardsContent = t("cardsContent");
+const buttonsContent = t("buttons");
+const badgesContent = t("badges");
 
 // Button texts from translations
-const buttonPrimaryText = t.buttons?.buttonPrimary?.text ?? "Primary";
-const buttonLargeText = t.buttons?.buttonLarge?.text ?? "Large";
-const buttonIconTextText = t.buttons?.buttonIconText?.text ?? "Icon Text";
+const buttonPrimaryText = buttonsContent.buttonPrimary?.text ?? "Primary";
+const buttonLargeText = buttonsContent.buttonLarge?.text ?? "Large";
+const buttonIconTextText = buttonsContent.buttonIconText?.text ?? "Icon Text";
 
 // Badge texts from translations
-const badgeDefaultText = t.badges?.Default?.text ?? "Default";
-const badgeWarningText = t.badges?.Warning?.text ?? "Warning";
-const badgeErrorText = t.badges?.Error?.text ?? "Error";
-const badgeNotificationsText = t.badges?.Notifications?.text ?? "Notifications";
+const badgeDefaultText = badgesContent.Default?.text ?? "Default";
+const badgeWarningText = badgesContent.Warning?.text ?? "Warning";
+const badgeErrorText = badgesContent.Error?.text ?? "Error";
+const badgeNotificationsText =
+  badgesContent.Notifications?.text ?? "Notifications";
 ---
 
 <MainLayout
@@ -36,7 +34,7 @@ const badgeNotificationsText = t.badges?.Notifications?.text ?? "Notifications";
   <div class="flex flex-wrap gap-8 p-8 justify-center">
     {
       cardsContent.map((cardContent: any, index: number) => (
-        <Card cardContent={cardContent} key={index} />
+        <Card {...cardContent} key={index} />
       ))
     }
   </div>
