@@ -7,23 +7,23 @@
   --font-display: "Fraunces", serif;
 
   /* Colors - Light Mode */
-  --color-primary: rgb(245 130 32);
-  --color-primary-dark: rgb(215 110 22);
-  --color-primary-subtle: rgba(245, 130, 32, 0.1);
-  --color-text-dark: #0f172a;
-  --color-text-muted: #64748b;
+  --color-primary: rgb(207, 113, 33);
+  --color-primary-dark: rgb(200 95 10);
+  --color-primary-subtle: rgba(245, 130, 32, 0.12);
+  --color-text-dark: #020617;
+  --color-text-muted: #475569;
   --color-bg-white: #ffffff;
   --color-bg-light: #f8fafc;
-  --color-border: #e2e8f0;
+  --color-border: #cbd5e1;
 
   /* Colors - Dark Mode */
   --color-dark-bg-primary: #020617;
   --color-dark-bg-secondary: #0f172a;
   --color-dark-bg-tertiary: #1e293b;
-  --color-dark-text-primary: #f8fafc;
-  --color-dark-text-muted: #94a3b8;
-  --color-dark-border: #1e293b;
-  --color-dark-primary-subtle: rgba(245, 130, 32, 0.15);
+  --color-dark-text-primary: #ffffff;
+  --color-dark-text-muted: #cbd5e1;
+  --color-dark-border: #334155;
+  --color-dark-primary-subtle: rgba(207, 113, 33, 0.2);
 
   /* Animations */
   --animate-delay-100: 0.1s;
