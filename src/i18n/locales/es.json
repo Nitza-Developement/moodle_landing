@@ -6,16 +6,34 @@
   "header": {
     "logoName": "MetisHost",
     "nav": [
-      { "name": "Características", "href": "#features" },
-      { "name": "Precios", "href": "#pricing" },
-      { "name": "Tecnología", "href": "#tech" },
-      { "name": "FAQ", "href": "#faq" },
-      { "name": "Blog", "href": "/blog" },
-      { "name": "Nosotros", "href": "/about" }
+      {
+        "name": "Características",
+        "href": "#features"
+      },
+      {
+        "name": "Precios",
+        "href": "#pricing"
+      },
+      {
+        "name": "Tecnología",
+        "href": "#tech"
+      },
+      {
+        "name": "FAQ",
+        "href": "#faq"
+      },
+      {
+        "name": "Blog",
+        "href": "/blog"
+      },
+      {
+        "name": "Nosotros",
+        "href": "/about"
+      }
     ],
     "cta": {
       "login": "Acceder",
-      "trial": "Prueba gratis"
+      "trial": "PRUEBA GRATIS"
     }
   },
   "hero": {
@@ -32,10 +50,22 @@
     "trust": {
       "label": "Infraestructura de confianza",
       "badges": [
-        { "icon": "server", "text": "Hetzner Cloud (Alemania)" },
-        { "icon": "database", "text": "PostgreSQL 16 + Redis" },
-        { "icon": "shield", "text": "Cloudflare WAF" },
-        { "icon": "clock", "text": "Soporte en <4h" }
+        {
+          "icon": "server",
+          "text": "Hetzner Cloud (Alemania)"
+        },
+        {
+          "icon": "database",
+          "text": "PostgreSQL 16 + Redis"
+        },
+        {
+          "icon": "shield",
+          "text": "Cloudflare WAF"
+        },
+        {
+          "icon": "clock",
+          "text": "Soporte en <4h"
+        }
       ]
     }
   },
@@ -215,55 +245,132 @@
     "label": "Comparativa",
     "title": "¿Por qué elegirnos?",
     "subtitle": "Comparativa honesta con otras opciones del mercado.",
-    "headers": ["Característica", "MetisHost", "Hosting genérico", "DIY (VPS propio)"],
+    "headers": [
+      "Característica",
+      "MetisHost",
+      "Hosting genérico",
+      "DIY (VPS propio)"
+    ],
     "rows": [
       {
         "feature": "Autoscaling automático",
-        "metishost": { "type": "check", "value": true },
-        "generic": { "type": "check", "value": false },
-        "diy": { "type": "check", "value": false }
+        "metishost": {
+          "type": "check",
+          "value": true
+        },
+        "generic": {
+          "type": "check",
+          "value": false
+        },
+        "diy": {
+          "type": "check",
+          "value": false
+        }
       },
       {
         "feature": "Soporte especializado Moodle",
-        "metishost": { "type": "check", "value": true },
-        "generic": { "type": "check", "value": false },
-        "diy": { "type": "check", "value": false }
+        "metishost": {
+          "type": "check",
+          "value": true
+        },
+        "generic": {
+          "type": "check",
+          "value": false
+        },
+        "diy": {
+          "type": "check",
+          "value": false
+        }
       },
       {
         "feature": "PostgreSQL + Redis optimizado",
-        "metishost": { "type": "check", "value": true },
-        "generic": { "type": "check", "value": false },
-        "diy": { "type": "text", "value": "Tú lo configuras" }
+        "metishost": {
+          "type": "check",
+          "value": true
+        },
+        "generic": {
+          "type": "check",
+          "value": false
+        },
+        "diy": {
+          "type": "text",
+          "value": "Tú lo configuras"
+        }
       },
       {
         "feature": "Alta disponibilidad (HA)",
-        "metishost": { "type": "check", "value": true },
-        "generic": { "type": "check", "value": false },
-        "diy": { "type": "text", "value": "Muy complejo" }
+        "metishost": {
+          "type": "check",
+          "value": true
+        },
+        "generic": {
+          "type": "check",
+          "value": false
+        },
+        "diy": {
+          "type": "text",
+          "value": "Muy complejo"
+        }
       },
       {
         "feature": "Actualizaciones gestionadas",
-        "metishost": { "type": "text", "value": "<48h tras release" },
-        "generic": { "type": "check", "value": false },
-        "diy": { "type": "text", "value": "Manual" }
+        "metishost": {
+          "type": "text",
+          "value": "<48h tras release"
+        },
+        "generic": {
+          "type": "check",
+          "value": false
+        },
+        "diy": {
+          "type": "text",
+          "value": "Manual"
+        }
       },
       {
         "feature": "Precio predecible",
-        "metishost": { "type": "check", "value": true },
-        "generic": { "type": "text", "value": "Variable por tráfico" },
-        "diy": { "type": "check", "value": true }
+        "metishost": {
+          "type": "check",
+          "value": true
+        },
+        "generic": {
+          "type": "text",
+          "value": "Variable por tráfico"
+        },
+        "diy": {
+          "type": "check",
+          "value": true
+        }
       },
       {
         "feature": "Tiempo de setup",
-        "metishost": { "type": "text", "value": "15 minutos" },
-        "generic": { "type": "text", "value": "1-2 horas" },
-        "diy": { "type": "text", "value": "1-2 días" }
+        "metishost": {
+          "type": "text",
+          "value": "15 minutos"
+        },
+        "generic": {
+          "type": "text",
+          "value": "1-2 horas"
+        },
+        "diy": {
+          "type": "text",
+          "value": "1-2 días"
+        }
       },
       {
         "feature": "Noches sin dormir",
-        "metishost": { "type": "text", "value": "0" },
-        "generic": { "type": "text", "value": "Algunas" },
-        "diy": { "type": "text", "value": "Muchas" }
+        "metishost": {
+          "type": "text",
+          "value": "0"
+        },
+        "generic": {
+          "type": "text",
+          "value": "Algunas"
+        },
+        "diy": {
+          "type": "text",
+          "value": "Muchas"
+        }
       }
     ]
   },
@@ -314,9 +421,18 @@
       "secondary": "Contactar"
     },
     "guarantees": [
-      { "icon": "credit-card", "text": "Sin tarjeta de crédito" },
-      { "icon": "clock", "text": "Setup en 15 minutos" },
-      { "icon": "arrow-right-left", "text": "Migración gratuita" }
+      {
+        "icon": "credit-card",
+        "text": "Sin tarjeta de crédito"
+      },
+      {
+        "icon": "clock",
+        "text": "Setup en 15 minutos"
+      },
+      {
+        "icon": "arrow-right-left",
+        "text": "Migración gratuita"
+      }
     ]
   },
   "footer": {
@@ -328,39 +444,90 @@
       {
         "title": "Producto",
         "links": [
-          { "name": "Características", "href": "#features" },
-          { "name": "Precios", "href": "#pricing" },
-          { "name": "Tecnología", "href": "#tech" },
-          { "name": "FAQ", "href": "#faq" },
-          { "name": "Changelog", "href": "/changelog" }
+          {
+            "name": "Características",
+            "href": "#features"
+          },
+          {
+            "name": "Precios",
+            "href": "#pricing"
+          },
+          {
+            "name": "Tecnología",
+            "href": "#tech"
+          },
+          {
+            "name": "FAQ",
+            "href": "#faq"
+          },
+          {
+            "name": "Changelog",
+            "href": "/changelog"
+          }
         ]
       },
       {
         "title": "Empresa",
         "links": [
-          { "name": "Sobre nosotros", "href": "/about" },
-          { "name": "Blog", "href": "/blog" },
-          { "name": "Contacto", "href": "/contacto" },
-          { "name": "Partners", "href": "/partners" }
+          {
+            "name": "Sobre nosotros",
+            "href": "/about"
+          },
+          {
+            "name": "Blog",
+            "href": "/blog"
+          },
+          {
+            "name": "Contacto",
+            "href": "/contacto"
+          },
+          {
+            "name": "Partners",
+            "href": "/partners"
+          }
         ]
       },
       {
         "title": "Recursos",
         "links": [
-          { "name": "Documentación", "href": "/docs" },
-          { "name": "Estado del servicio", "href": "/status" },
-          { "name": "Guía de migración", "href": "/migracion" },
-          { "name": "Comparativa", "href": "/comparativa" }
+          {
+            "name": "Documentación",
+            "href": "/docs"
+          },
+          {
+            "name": "Estado del servicio",
+            "href": "/status"
+          },
+          {
+            "name": "Guía de migración",
+            "href": "/migracion"
+          },
+          {
+            "name": "Comparativa",
+            "href": "/comparativa"
+          }
         ]
       }
     ],
     "legal": {
       "copyright": "© 2025 MetisHost. Todos los derechos reservados.",
       "links": [
-        { "name": "Aviso legal", "href": "/legal/aviso-legal" },
-        { "name": "Política de privacidad", "href": "/legal/privacidad" },
-        { "name": "Política de cookies", "href": "/legal/cookies" },
-        { "name": "Condiciones de servicio", "href": "/legal/condiciones" }
+        {
+          "name": "Aviso legal",
+          "href": "/legal/aviso-legal"
+        },
+        {
+          "name": "Política de privacidad",
+          "href": "/legal/privacidad"
+        },
+        {
+          "name": "Política de cookies",
+          "href": "/legal/cookies"
+        },
+        {
+          "name": "Condiciones de servicio",
+          "href": "/legal/condiciones"
+        }
       ]
     }
   },
@@ -368,8 +535,14 @@
     "languageSelector": {
       "label": "Idioma",
       "languages": [
-        { "code": "es", "name": "Español" },
-        { "code": "en", "name": "English" }
+        {
+          "code": "es",
+          "name": "Español"
+        },
+        {
+          "code": "en",
+          "name": "English"
+        }
       ]
     },
     "themeToggle": {

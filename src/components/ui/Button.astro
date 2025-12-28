@@ -1,45 +1,55 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 interface Props {
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: "primary" | "secondary" | "ghost";
   href?: string;
   icon?: string;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: "left" | "right";
   class?: string;
-  type?: 'button' | 'submit';
+  type?: "button" | "submit";
 }
 
-const { 
-  variant = 'primary', 
-  href, 
-  icon, 
-  iconPosition = 'left',
-  class: className = '',
-  type = 'button'
+const {
+  variant = "primary",
+  href,
+  icon,
+  iconPosition = "left",
+  class: className = "",
+  type = "button",
 } = Astro.props;
 
 const variantClasses = {
-  primary: 'btn-primary',
-  secondary: 'btn-secondary',
-  ghost: 'btn-ghost'
+  primary: "btn-primary",
+  secondary: "btn-secondary",
+  ghost: "btn-ghost",
 };
 
 const classes = `btn ${variantClasses[variant]} ${className}`;
 
-const Element = href ? 'a' : 'button';
+const Element = href ? "a" : "button";
 ---
 
-{href ? (
-  <a href={href} class={classes}>
-    {icon && iconPosition === 'left' && <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px]" />}
-    <slot />
-    {icon && iconPosition === 'right' && <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px]" />}
-  </a>
-) : (
-  <button type={type} class={classes}>
-    {icon && iconPosition === 'left' && <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px]" />}
-    <slot />
-    {icon && iconPosition === 'right' && <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px]" />}
-  </button>
-)}
+{
+  href ? (
+    <a href={href} class={classes}>
+      {icon && iconPosition === "left" && (
+        <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px]" />
+      )}
+      <slot />
+      {icon && iconPosition === "right" && (
+        <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px]" />
+      )}
+    </a>
+  ) : (
+    <button type={type} class={classes}>
+      {icon && iconPosition === "left" && (
+        <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px]" />
+      )}
+      <slot />
+      {icon && iconPosition === "right" && (
+        <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px]" />
+      )}
+    </button>
+  )
+}
