@@ -1,0 +1,18 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  question: string;
+  answer: string;
+}
+
+const { question, answer } = Astro.props;
+---
+
+<div class="p-6 bg-bg-light rounded-xl border border-transparent transition-all duration-200 hover:border-primary-light hover:bg-white dark:bg-dark-bg-tertiary dark:hover:bg-dark-bg-secondary dark:hover:border-primary/50">
+  <h3 class="text-base font-semibold mb-3 flex items-start gap-3 dark:text-dark-text-primary">
+    <Icon name="lucide:help-circle" class="w-[18px] h-[18px] text-primary flex-shrink-0 mt-0.5" />
+    {question}
+  </h3>
+  <p class="text-[15px] pl-8">{answer}</p>
+</div>

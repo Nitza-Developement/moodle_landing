@@ -1,0 +1,19 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const { icon, title, description } = Astro.props;
+---
+
+<div class="p-8 bg-bg-white border border-border rounded-2xl transition-all duration-300 hover:border-primary-light hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 dark:bg-dark-bg-secondary dark:border-dark-border dark:hover:border-primary/50">
+  <div class="w-12 h-12 bg-primary-subtle rounded-xl flex items-center justify-center mb-5 text-primary dark:bg-dark-primary-subtle">
+    <Icon name={`lucide:${icon}`} class="w-6 h-6" />
+  </div>
+  <h3 class="mb-3 text-lg font-semibold dark:text-dark-text-primary">{title}</h3>
+  <p class="text-[15px] leading-relaxed">{description}</p>
+</div>

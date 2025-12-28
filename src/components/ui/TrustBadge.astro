@@ -1,0 +1,15 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  text: string;
+}
+
+const { icon, text } = Astro.props;
+---
+
+<div class="flex items-center gap-2 text-sm font-medium text-text-muted dark:text-dark-text-muted">
+  <Icon name={`lucide:${icon}`} class="w-[18px] h-[18px] text-primary" />
+  <span set:html={text} />
+</div>

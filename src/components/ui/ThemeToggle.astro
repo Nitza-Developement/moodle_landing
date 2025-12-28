@@ -1,0 +1,49 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+  type="button"
+  class="theme-toggle p-2 rounded-lg text-text-muted hover:text-text-dark hover:bg-bg-light transition-colors dark:text-dark-text-muted dark:hover:text-dark-text-primary dark:hover:bg-dark-bg-tertiary"
+  aria-label="Cambiar tema"
+>
+  <Icon name="lucide:sun" class="w-5 h-5 hidden dark:block" />
+  <Icon name="lucide:moon" class="w-5 h-5 block dark:hidden" />
+</button>
+
+<script>
+  function initTheme() {
+    console.log("Initializing theme toggle...");
+    const themeToggles = document.querySelectorAll(".theme-toggle");
+
+    const updateTheme = (theme: string) => {
+      console.log("Updating theme to:", theme);
+      const isDark = theme === "dark";
+      document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+      localStorage.setItem("theme", theme);
+    };
+
+    themeToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        console.log("Theme toggle clicked");
+        const isDark = document.documentElement.classList.contains("dark");
+        updateTheme(isDark ? "light" : "dark");
+      });
+    });
+
+    // Listen for system preference changes
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        if (!localStorage.getItem("theme")) {
+          updateTheme(e.matches ? "dark" : "light");
+        }
+      });
+  }
+
+  // Initialize on page load
+  initTheme();
+
+  // Re-initialize after View Transitions (if used)
+  document.addEventListener("astro:after-swap", initTheme);
+</script>

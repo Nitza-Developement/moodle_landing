@@ -1,101 +1,94 @@
 ---
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
-import MainLayout from "../layouts/MainLayout.astro";
-import Card from "../components/Card.astro";
-import Button from "../components/Button.astro";
-import Badge from "../components/Badge.astro";
-import Carrusel from "../components/Carrusel.astro";
-import ReviewBars from "../components/ReviewBars.astro";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Hero from "@components/Hero.astro";
+import Features from "@components/Features.astro";
+import Pricing from "@components/Pricing.astro";
+import TechStack from "@components/TechStack.astro";
+import Comparison from "@components/Comparison.astro";
+import FAQ from "@components/FAQ.astro";
+import CTA from "@components/CTA.astro";
+import Footer from "@components/Footer.astro";
+
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const cardsContent = t("cardsContent");
-const buttonsContent = t("buttons");
-const badgesContent = t("badges");
-
-// Button texts from translations
-const buttonPrimaryText = buttonsContent.buttonPrimary?.text ?? "Primary";
-const buttonLargeText = buttonsContent.buttonLarge?.text ?? "Large";
-const buttonIconTextText = buttonsContent.buttonIconText?.text ?? "Icon Text";
-
-// Badge texts from translations
-const badgeDefaultText = badgesContent.Default?.text ?? "Default";
-const badgeWarningText = badgesContent.Warning?.text ?? "Warning";
-const badgeErrorText = badgesContent.Error?.text ?? "Error";
-const badgeNotificationsText =
-  badgesContent.Notifications?.text ?? "Notifications";
+const meta = t("meta");
+const header = t("header");
+const hero = t("hero");
+const features = t("features");
+const pricing = t("pricing");
+const tech = t("tech");
+const comparison = t("comparison");
+const faq = t("faq");
+const cta = t("cta");
+const footer = t("footer");
 ---
 
-<MainLayout
-  title="Moodle Landing"
-  description="Welcome to our Moodle Landing page"
->
-  <div class="flex flex-wrap gap-8 p-8 justify-center">
-    {
-      cardsContent.map((cardContent: any, index: number) => (
-        <Card {...cardContent} key={index} />
-      ))
-    }
-  </div>
+<Layout title={meta.title} description={meta.description}>
+  <Header
+    logoName={header.logoName}
+    nav={header.nav}
+    cta={header.cta}
+    currentLang={lang}
+  />
 
-  <div class="p-8 space-y-4">
-    <div class="flex flex-wrap gap-4">
-      <Button
-        text={buttonPrimaryText}
-        variant="Primary"
-        data-button-action
-        data-params={JSON.stringify({ valor1: "valor1" })}
-      />
-      <Button text={buttonLargeText} variant="Large" />
-      <Button
-        text={buttonIconTextText}
-        variant="IconText"
-        iconName="phone-arrow-down-left"
-      />
-      <Button variant="Icon" iconName="phone-arrow-down-left" />
-    </div>
-
-    <div class="flex flex-wrap gap-4">
-      <Badge text={badgeDefaultText} type="Default" />
-      <Badge text={badgeWarningText} type="Default" />
-      <Badge text={badgeErrorText} type="Default" />
-      <Badge text={badgeNotificationsText} type="count" count={8} />
-    </div>
-  </div>
-
-  <Carrusel />
-
-  <div class="p-8 space-y-4">
-    <ReviewBars
-      img="https://coderthemes.com/yum/assets/avatar1-25906796.png"
-      name="Jakob Culhane"
-      stars={4}
-      text="Healthy and Delicious Food"
+  <main>
+    <Hero
+      badge={hero.badge}
+      title={hero.title}
+      subtitle={hero.subtitle}
+      cta={hero.cta}
+      trust={hero.trust}
     />
 
-    <ReviewBars
-      img="https://coderthemes.com/yum/assets/burger-1-0c3ba5a6.svg"
-      name="MCD Veg Burger"
-      stars={5}
-      signal="$"
-      text2="8.14"
+    <Features
+      label={features.label}
+      title={features.title}
+      subtitle={features.subtitle}
+      cards={features.cards}
     />
-  </div>
-</MainLayout>
 
-<script>
-  // Client-side JavaScript for button click handlers
-  document.querySelectorAll("[data-button-action]").forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const target = e.currentTarget as HTMLElement;
-      const params = target.dataset.params;
+    <Pricing
+      label={pricing.label}
+      title={pricing.title}
+      subtitle={pricing.subtitle}
+      note={pricing.note}
+      plans={pricing.plans}
+    />
 
-      if (params) {
-        console.log("click: ", JSON.parse(params));
-      } else {
-        console.log("click");
-      }
-    });
-  });
-</script>
+    <TechStack
+      label={tech.label}
+      title={tech.title}
+      subtitle={tech.subtitle}
+      items={tech.items}
+      servers={tech.servers}
+    />
+
+    <Comparison
+      label={comparison.label}
+      title={comparison.title}
+      subtitle={comparison.subtitle}
+      headers={comparison.headers}
+      rows={comparison.rows}
+    />
+
+    <FAQ
+      label={faq.label}
+      title={faq.title}
+      subtitle={faq.subtitle}
+      items={faq.items}
+    />
+
+    <CTA
+      title={cta.title}
+      subtitle={cta.subtitle}
+      buttons={cta.buttons}
+      guarantees={cta.guarantees}
+    />
+  </main>
+
+  <Footer brand={footer.brand} columns={footer.columns} legal={footer.legal} />
+</Layout>
