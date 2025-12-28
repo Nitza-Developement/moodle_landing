@@ -1,11 +1,15 @@
 ---
 // src/pages/index.astro  (o donde tengas tu página principal)
-import Layout from "../layouts/Layout.astro"; // Asumiendo que tu layout actual está en layouts/Layout.astro
+import Layout from "../layouts/Layout.astro";
 import LatestArticle from "@components/ui/LatestArticle.astro";
+import BlogHero from "../components/BlogHero.astro";
+import es from "../i18n/locales/es.json";
 
 // Obtener todos los posts (ajusta según tu estructura de contenido)
 import { getCollection } from "astro:content";
 const allPosts = await getCollection("blog"); // Asume colección 'blog'
+
+const { blog } = es;
 
 // Ordenar por fecha descendente
 const latestPosts = allPosts
@@ -22,39 +26,7 @@ const description =
 ---
 
 <Layout title={title} description={description}>
-    <!-- Header / Navigation (adapta a tu tema de astronomía) -->
-    <header class="bg-gray-900 text-white py-6 border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <h1 class="text-3xl font-bold font-serif">The Astro Blog</h1>
-            <nav class="space-x-8 text-lg">
-                <a href="/" class="hover:text-cyan-400">Inicio</a>
-                <a href="/blog" class="hover:text-cyan-400">Artículos</a>
-                <a href="/categorias" class="hover:text-cyan-400">Categorías</a>
-                <a href="/sobre" class="hover:text-cyan-400">Sobre mí</a>
-                <!-- Agrega búsqueda si lo deseas -->
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section (inspirado en el texto introductorio de ScalaHosting) -->
-    <section
-        class="bg-gradient-to-b from-gray-900 to-black text-white py-20 text-center"
-    >
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-5xl font-bold mb-6">
-                Explora las últimas noticias, consejos y descubrimientos en
-                astronomía
-            </h2>
-            <p class="text-xl mb-8">
-                Artículos escritos por apasionados del espacio, con guías
-                prácticas, análisis profundos y las novedades del universo.
-            </p>
-            <p class="text-lg">
-                ¿Quieres colaborar con un guest post? ¡Contáctame si tienes un
-                tema interesante sobre astronomía o astrofotografía!
-            </p>
-        </div>
-    </section>
+    <BlogHero {...blog.hero} />
 
     <!-- Latest Articles -->
     <section class="py-16 bg-bg-light dark:bg-dark-bg-primary">

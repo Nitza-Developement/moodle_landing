@@ -550,5 +550,19 @@
       "dark": "Modo oscuro",
       "system": "Sistema"
     }
+  },
+  "blog": {
+    "hero": {
+      "badge": "Blog MetisHost",
+      "title": {
+        "line1": "Tu guía completa para",
+        "highlight": "dominar Moodle"
+      },
+      "subtitle": "Tutoriales, optimización, seguridad y las mejores prácticas para sacar el máximo partido a tu plataforma educativa.",
+      "cta": {
+        "primary": "Explorar artículos",
+        "secondary": "Suscribirse"
+      }
+    }
   }
 }
