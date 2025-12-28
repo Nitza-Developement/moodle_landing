@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -29,52 +29,22 @@ const { title, description } = Astro.props;
     <!-- Dark mode script - runs before page renders to prevent flash -->
     <script is:inline>
       const getThemePreference = () => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
         }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
       };
-      
-      const isDark = getThemePreference() === 'dark';
-      document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+
+      const isDark = getThemePreference() === "dark";
+      document.documentElement.classList[isDark ? "add" : "remove"]("dark");
     </script>
   </head>
   <body>
     <slot />
-
-    <!-- Theme toggle script -->
-    <script>
-      function setupThemeToggle() {
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        const updateTheme = (theme: string) => {
-          const isDark = theme === 'dark';
-          document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
-          localStorage.setItem('theme', theme);
-          
-          // Update toggle button icon
-          const sunIcon = themeToggle?.querySelector('.icon-sun');
-          const moonIcon = themeToggle?.querySelector('.icon-moon');
-          if (sunIcon && moonIcon) {
-            sunIcon.classList[isDark ? 'remove' : 'add']('hidden');
-            moonIcon.classList[isDark ? 'add' : 'remove']('hidden');
-          }
-        };
-
-        themeToggle?.addEventListener('click', () => {
-          const isDark = document.documentElement.classList.contains('dark');
-          updateTheme(isDark ? 'light' : 'dark');
-        });
-
-        // Listen for system preference changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-          if (!localStorage.getItem('theme')) {
-            updateTheme(e.matches ? 'dark' : 'light');
-          }
-        });
-      }
-
-      document.addEventListener('DOMContentLoaded', setupThemeToggle);
-    </script>
   </body>
 </html>

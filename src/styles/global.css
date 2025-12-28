@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   /* Fonts */
@@ -41,7 +42,10 @@
     @apply dark:bg-dark-bg-primary dark:text-dark-text-primary;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-display font-semibold leading-tight;
   }
 
@@ -56,8 +60,13 @@
   }
 
   .btn-primary {
-    @apply bg-primary text-white shadow-[0_4px_14px_rgba(249,115,22,0.35)];
-    @apply hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(249,115,22,0.4)];
+    @apply bg-primary text-white;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+    @apply hover:bg-primary-dark hover:-translate-y-0.5;
+
+    &:hover {
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+    }
   }
 
   .btn-secondary {
@@ -85,12 +94,15 @@
 @utility animate-delay-100 {
   animation-delay: 0.1s;
 }
+
 @utility animate-delay-200 {
   animation-delay: 0.2s;
 }
+
 @utility animate-delay-300 {
   animation-delay: 0.3s;
 }
+
 @utility animate-delay-400 {
   animation-delay: 0.4s;
 }
