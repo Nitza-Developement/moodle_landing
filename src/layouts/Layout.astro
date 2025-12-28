@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-
 interface Props {
   title: string;
   description: string;
@@ -46,5 +45,8 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <slot />
+    <script>
+      import "../firebase.client.ts";
+    </script>
   </body>
 </html>
