@@ -1,0 +1,134 @@
+---
+// src/pages/index.astro  (o donde tengas tu página principal)
+import Layout from "../layouts/Layout.astro"; // Asumiendo que tu layout actual está en layouts/Layout.astro
+import LatestArticle from "@components/ui/LatestArticle.astro";
+
+// Obtener todos los posts (ajusta según tu estructura de contenido)
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("blog"); // Asume colección 'blog'
+
+// Ordenar por fecha descendente
+const latestPosts = allPosts
+    .sort(
+        (a, b) =>
+            new Date(b.data.pubDate).getTime() -
+            new Date(a.data.pubDate).getTime(),
+    )
+    .slice(0, 10); // Muestra los 10 más recientes, ajusta según necesites
+
+const title = "The Astro Blog";
+const description =
+    "Noticias, consejos y guías sobre astronomía, espacio y ciencia.";
+---
+
+<Layout title={title} description={description}>
+    <!-- Header / Navigation (adapta a tu tema de astronomía) -->
+    <header class="bg-gray-900 text-white py-6 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <h1 class="text-3xl font-bold font-serif">The Astro Blog</h1>
+            <nav class="space-x-8 text-lg">
+                <a href="/" class="hover:text-cyan-400">Inicio</a>
+                <a href="/blog" class="hover:text-cyan-400">Artículos</a>
+                <a href="/categorias" class="hover:text-cyan-400">Categorías</a>
+                <a href="/sobre" class="hover:text-cyan-400">Sobre mí</a>
+                <!-- Agrega búsqueda si lo deseas -->
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section (inspirado en el texto introductorio de ScalaHosting) -->
+    <section
+        class="bg-gradient-to-b from-gray-900 to-black text-white py-20 text-center"
+    >
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-5xl font-bold mb-6">
+                Explora las últimas noticias, consejos y descubrimientos en
+                astronomía
+            </h2>
+            <p class="text-xl mb-8">
+                Artículos escritos por apasionados del espacio, con guías
+                prácticas, análisis profundos y las novedades del universo.
+            </p>
+            <p class="text-lg">
+                ¿Quieres colaborar con un guest post? ¡Contáctame si tienes un
+                tema interesante sobre astronomía o astrofotografía!
+            </p>
+        </div>
+    </section>
+
+    <!-- Latest Articles -->
+    <section class="py-16 bg-bg-light dark:bg-dark-bg-primary">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-4xl font-bold dark:text-dark-text-primary">
+                    Últimos artículos
+                </h2>
+                <a
+                    href="/blog"
+                    class="text-primary hover:text-primary-dark transition-colors text-lg dark:text-primary-light dark:hover:text-primary"
+                >
+                    Ver todos →
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {
+                    latestPosts.map((post) => (
+                        <LatestArticle
+                            image={
+                                (typeof post.data.heroImage === "string"
+                                    ? post.data.heroImage
+                                    : post.data.heroImage?.src) || ""
+                            }
+                            imageAlt={post.data.title}
+                            category={post.data.category}
+                            categoryUrl={`/blog/categoria/${post.data.categorySlug}`}
+                            title={post.data.title}
+                            url={`/blog/${post.slug}`}
+                            description={post.data.description}
+                            pubDate={post.data.pubDate}
+                            readingTime={post.data.readingTime}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Opcional: Otras secciones inspiradas (ej. Guías populares, Categorías destacadas) -->
+    <!-- Puedes agregar más secciones similares si tu blog tiene contenido categorizado -->
+    <!-- Ejemplo de categorías destacadas -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-10 text-center">
+                Categorías populares
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <a
+                    href="/categoria/observacion"
+                    class="text-center p-8 bg-gray-200 dark:bg-gray-800 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-900 transition"
+                >
+                    <h3 class="text-2xl font-bold">Observación</h3>
+                </a>
+                <a
+                    href="/categoria/astrofotografia"
+                    class="text-center p-8 bg-gray-200 dark:bg-gray-800 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-900 transition"
+                >
+                    <h3 class="text-2xl font-bold">Astrofotografía</h3>
+                </a>
+                <a
+                    href="/categoria/misiones-espaciales"
+                    class="text-center p-8 bg-gray-200 dark:bg-gray-800 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-900 transition"
+                >
+                    <h3 class="text-2xl font-bold">Misiones espaciales</h3>
+                </a>
+                <a
+                    href="/categoria/ciencia"
+                    class="text-center p-8 bg-gray-200 dark:bg-gray-800 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-900 transition"
+                >
+                    <h3 class="text-2xl font-bold">Ciencia del espacio</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+</Layout>

@@ -1,6 +1,5 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
 import Hero from "@components/Hero.astro";
 import Features from "@components/Features.astro";
 import Pricing from "@components/Pricing.astro";
@@ -8,7 +7,6 @@ import TechStack from "@components/TechStack.astro";
 import Comparison from "@components/Comparison.astro";
 import FAQ from "@components/FAQ.astro";
 import CTA from "@components/CTA.astro";
-import Footer from "@components/Footer.astro";
 
 import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
@@ -16,7 +14,6 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const meta = t("meta");
-const header = t("header");
 const hero = t("hero");
 const features = t("features");
 const pricing = t("pricing");
@@ -24,71 +21,59 @@ const tech = t("tech");
 const comparison = t("comparison");
 const faq = t("faq");
 const cta = t("cta");
-const footer = t("footer");
 ---
 
 <Layout title={meta.title} description={meta.description}>
-  <Header
-    logoName={header.logoName}
-    nav={header.nav}
-    cta={header.cta}
-    currentLang={lang}
+  <Hero
+    badge={hero.badge}
+    title={hero.title}
+    subtitle={hero.subtitle}
+    cta={hero.cta}
+    trust={hero.trust}
   />
 
-  <main>
-    <Hero
-      badge={hero.badge}
-      title={hero.title}
-      subtitle={hero.subtitle}
-      cta={hero.cta}
-      trust={hero.trust}
-    />
+  <Features
+    label={features.label}
+    title={features.title}
+    subtitle={features.subtitle}
+    cards={features.cards}
+  />
 
-    <Features
-      label={features.label}
-      title={features.title}
-      subtitle={features.subtitle}
-      cards={features.cards}
-    />
+  <Pricing
+    label={pricing.label}
+    title={pricing.title}
+    subtitle={pricing.subtitle}
+    note={pricing.note}
+    plans={pricing.plans}
+  />
 
-    <Pricing
-      label={pricing.label}
-      title={pricing.title}
-      subtitle={pricing.subtitle}
-      note={pricing.note}
-      plans={pricing.plans}
-    />
+  <TechStack
+    label={tech.label}
+    title={tech.title}
+    subtitle={tech.subtitle}
+    items={tech.items}
+    servers={tech.servers}
+  />
 
-    <TechStack
-      label={tech.label}
-      title={tech.title}
-      subtitle={tech.subtitle}
-      items={tech.items}
-      servers={tech.servers}
-    />
+  <Comparison
+    label={comparison.label}
+    title={comparison.title}
+    subtitle={comparison.subtitle}
+    headers={comparison.headers}
+    rows={comparison.rows}
+  />
 
-    <Comparison
-      label={comparison.label}
-      title={comparison.title}
-      subtitle={comparison.subtitle}
-      headers={comparison.headers}
-      rows={comparison.rows}
-    />
+  <FAQ
+    label={faq.label}
+    title={faq.title}
+    subtitle={faq.subtitle}
+    items={faq.items}
+  />
 
-    <FAQ
-      label={faq.label}
-      title={faq.title}
-      subtitle={faq.subtitle}
-      items={faq.items}
-    />
-
-    <CTA
-      title={cta.title}
-      subtitle={cta.subtitle}
-      buttons={cta.buttons}
-      guarantees={cta.guarantees}
-    />
-  </main>
-
-  <Footer brand={footer.brand} columns={footer.columns} legal={footer.legal} />
+  <CTA
+    title={cta.title}
+    subtitle={cta.subtitle}
+    buttons={cta.buttons}
+    guarantees={cta.guarantees}
+  />
 </Layout>

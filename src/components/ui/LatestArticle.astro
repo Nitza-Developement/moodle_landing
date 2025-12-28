@@ -1,0 +1,83 @@
+---
+interface Props {
+    image: string;
+    imageAlt?: string;
+    category: string;
+    categoryUrl: string;
+    title: string;
+    url: string;
+    description: string;
+    pubDate: Date;
+    readingTime?: number;
+}
+
+const {
+    image,
+    imageAlt = "",
+    category,
+    categoryUrl,
+    title,
+    url,
+    description,
+    pubDate,
+    readingTime,
+} = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+});
+---
+
+<article
+    class="group bg-bg-white border border-border rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 dark:bg-dark-bg-secondary dark:border-dark-border dark:hover:border-primary/50"
+>
+    <a href={url} class="block overflow-hidden">
+        <img
+            src={image}
+            alt={imageAlt}
+            class="w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+        />
+    </a>
+
+    <div class="p-6">
+        <div class="mb-3">
+            <a
+                href={categoryUrl}
+                class="inline-block text-xs font-medium uppercase tracking-wide text-primary bg-primary-subtle px-3 py-1 rounded-full transition-colors hover:bg-primary hover:text-white dark:bg-dark-primary-subtle dark:hover:bg-primary"
+                rel="nofollow"
+            >
+                {category}
+            </a>
+        </div>
+
+        <h2
+            class="mb-3 text-lg font-semibold leading-snug dark:text-dark-text-primary"
+        >
+            <a
+                href={url}
+                class="transition-colors hover:text-primary dark:hover:text-primary-light"
+            >
+                {title}
+            </a>
+        </h2>
+
+        <p
+            class="text-[15px] leading-relaxed text-text-muted line-clamp-3 mb-4 dark:text-dark-text-muted"
+        >
+            {description}
+        </p>
+
+        <div
+            class="flex justify-between items-center text-sm text-text-muted dark:text-dark-text-muted"
+        >
+            <time datetime={pubDate.toISOString()}>
+                {formattedDate}
+            </time>
+            {readingTime && <span>{readingTime} min de lectura</span>}
+        </div>
+    </div>
+</article>
