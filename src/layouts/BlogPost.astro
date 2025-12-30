@@ -10,31 +10,345 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <Layout title={title} description={description}>
-    <article>
-        <div class="hero-image">
-            {
-                heroImage && (
-                    <Image width={1020} height={510} src={heroImage} alt="" />
-                )
-            }
-        </div>
-        <div class="prose">
-            <div class="title">
-                <div class="date">
+    <article class="article">
+        {
+            heroImage && (
+                <figure class="hero-image">
+                    <Image
+                        width={1400}
+                        height={700}
+                        src={heroImage}
+                        alt=""
+                        class="hero-img"
+                    />
+                </figure>
+            )
+        }
+
+        <div class="article-content">
+            <header class="article-header">
+                <h1 class="article-title">{title}</h1>
+                <div class="article-meta">
                     <FormattedDate date={pubDate} />
                     {
                         updatedDate && (
-                            <div class="last-updated-on">
-                                Last updated on{" "}
-                                <FormattedDate date={updatedDate} />
-                            </div>
+                            <span class="updated">
+                                · Updated <FormattedDate date={updatedDate} />
+                            </span>
                         )
                     }
+                    <span class="reading-time">· 5 min read</span>
                 </div>
-                <h1>{title}</h1>
-                <hr />
+            </header>
+
+            <div class="article-body">
+                <slot />
             </div>
-            <slot />
         </div>
     </article>
 </Layout>
+
+<style>
+    /* Container principal */
+    .article {
+        max-width: 100%;
+        margin: 0 auto;
+        padding-bottom: 4rem;
+    }
+
+    /* Hero Image - más ancha que el contenido */
+    .hero-image {
+        max-width: 1000px;
+        margin: 0 auto 2rem;
+        padding: 0 1rem;
+    }
+
+    .hero-img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    /* Contenido del artículo */
+    .article-content {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* Header del artículo */
+    .article-header {
+        margin-bottom: 2rem;
+    }
+
+    .article-title {
+        font-size: clamp(2rem, 5vw, 2.75rem);
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        color: rgba(0, 0, 0, 0.84);
+        margin: 0 0 1rem 0;
+    }
+
+    :global(.dark) .article-title {
+        color: rgba(255, 255, 255, 0.92);
+    }
+
+    .article-meta {
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 0.875rem;
+        color: rgba(0, 0, 0, 0.54);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    :global(.dark) .article-meta {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .updated,
+    .reading-time {
+        color: rgba(0, 0, 0, 0.54);
+    }
+
+    :global(.dark) .updated,
+    :global(.dark) .reading-time {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Body del artículo - Estilos tipo Medium */
+    .article-body {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.25rem;
+        line-height: 1.8;
+        color: rgba(0, 0, 0, 0.84);
+        letter-spacing: -0.003em;
+    }
+
+    :global(.dark) .article-body {
+        color: rgba(255, 255, 255, 0.84);
+    }
+
+    /* Párrafos */
+    .article-body :global(p) {
+        margin: 0 0 1.5rem 0;
+        color: rgba(0, 0, 0, 0.84);
+    }
+
+    /* Primera letra estilo drop cap (opcional) */
+    .article-body :global(p:first-of-type::first-letter) {
+        font-size: 3.5rem;
+        font-weight: 700;
+        float: left;
+        line-height: 1;
+        margin-right: 0.5rem;
+        margin-top: 0.1rem;
+    }
+
+    /* Headings */
+    .article-body :global(h2) {
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.3;
+        margin: 3rem 0 1rem 0;
+        color: rgba(0, 0, 0, 0.84);
+        letter-spacing: -0.02em;
+    }
+
+    .article-body :global(h3) {
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin: 2.5rem 0 0.75rem 0;
+        color: rgba(0, 0, 0, 0.84);
+    }
+
+    :global(.dark) .article-body :global(h2),
+    :global(.dark) .article-body :global(h3) {
+        color: rgba(255, 255, 255, 0.92);
+    }
+
+    /* Links */
+    .article-body :global(a) {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: rgba(0, 0, 0, 0.3);
+        text-underline-offset: 2px;
+        transition: text-decoration-color 0.2s ease;
+    }
+
+    .article-body :global(a:hover) {
+        text-decoration-color: rgba(0, 0, 0, 0.84);
+    }
+
+    :global(.dark) .article-body :global(a) {
+        text-decoration-color: rgba(255, 255, 255, 0.3);
+    }
+
+    :global(.dark) .article-body :global(a:hover) {
+        text-decoration-color: rgba(255, 255, 255, 0.84);
+    }
+
+    /* Blockquotes */
+    .article-body :global(blockquote) {
+        margin: 2rem 0;
+        padding-left: 1.5rem;
+        border-left: 3px solid rgba(0, 0, 0, 0.84);
+        font-style: italic;
+        color: rgba(0, 0, 0, 0.68);
+    }
+
+    :global(.dark) .article-body :global(blockquote) {
+        border-left-color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.68);
+    }
+
+    .article-body :global(blockquote p) {
+        margin: 0;
+    }
+
+    /* Código inline */
+    .article-body :global(code) {
+        font-family: "SF Mono", Monaco, "Courier New", monospace;
+        font-size: 0.9em;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+    }
+
+    :global(.dark) .article-body :global(code) {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Bloques de código */
+    .article-body :global(pre) {
+        background: #1a1a2e;
+        color: #e4e4e7;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 2rem 0;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .article-body :global(pre code) {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+    }
+
+    /* Imágenes dentro del contenido */
+    .article-body :global(img) {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin: 2rem 0;
+    }
+
+    /* Figuras con caption */
+    .article-body :global(figure) {
+        margin: 2rem 0;
+    }
+
+    .article-body :global(figcaption) {
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 0.875rem;
+        color: rgba(0, 0, 0, 0.54);
+        text-align: center;
+        margin-top: 0.75rem;
+    }
+
+    :global(.dark) .article-body :global(figcaption) {
+        color: rgba(255, 255, 255, 0.54);
+    }
+
+    /* Listas */
+    .article-body :global(ul),
+    .article-body :global(ol) {
+        margin: 1.5rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .article-body :global(li) {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Separadores */
+    .article-body :global(hr) {
+        border: none;
+        text-align: center;
+        margin: 3rem 0;
+    }
+
+    .article-body :global(hr::before) {
+        content: "···";
+        font-size: 1.5rem;
+        letter-spacing: 1em;
+        color: rgba(0, 0, 0, 0.54);
+    }
+
+    :global(.dark) .article-body :global(hr::before) {
+        color: rgba(255, 255, 255, 0.54);
+    }
+
+    /* Strong y emphasis */
+    .article-body :global(strong) {
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.92);
+    }
+
+    :global(.dark) .article-body :global(strong) {
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Tablas */
+    .article-body :global(table) {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        font-size: 1rem;
+    }
+
+    .article-body :global(th),
+    .article-body :global(td) {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    :global(.dark) .article-body :global(th),
+    :global(.dark) .article-body :global(td) {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .article-body :global(th) {
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .article-body {
+            font-size: 1.125rem;
+        }
+
+        .article-body :global(p:first-of-type::first-letter) {
+            font-size: 3rem;
+        }
+
+        .article-content {
+            padding: 0 1rem;
+        }
+    }
+</style>
